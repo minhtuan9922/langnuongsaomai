@@ -9,7 +9,7 @@
 		?>
 		<li data-target="#slide" data-slide-to="<?=$k ?>" class="<?php if($k == 0) echo 'active'; ?>">
 			<div class="slide-poster">
-				<img src="<?=base_url('img/poster/'.$item['poster']) ?>" alt="" width="100%">
+				<?php /*<img src="<?=base_url('img/poster/'.$item['poster']) ?>" alt="" width="100%">*/ ?>
 			</div>
 		</li>
 		<?php
@@ -24,10 +24,14 @@
 			foreach($list_slide as $k => $item)
 			{
 		?>
-		<div class="carousel-item <?php if($k == 0) echo 'active'; ?>" style="background-image: url('img/slide/<?=$item['background'] ?>')">
+		<div class="carousel-item <?php if($k == 0) echo 'active'; ?>">
+			<img src="<?=base_url('img/slide/'.$item['background']) ?>" width="100%"> 
+			<?php /*
 			<div class="carousel-caption">
 				<h3><a href="<?=base_url('xemphim/'.$item['id_phim'].'/'.$this->chuanhoa->convert_vi_to_en($item['tenphim_vn'])) ?>"><?=$item['tenphim_vn'] ?></a></h3>
-			</div>   
+			</div>  
+			*/
+			?>
 		</div>
 		<?php
 			}

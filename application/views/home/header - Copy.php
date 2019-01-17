@@ -1,41 +1,34 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
 	<div class="container">
-		<a class="navbar-brand logo" href="<?=base_url() ?>"><img src="<?=base_url() ?>img/logo.png"></a>
+		<a class="navbar-brand logo" href="<?=base_url() ?>"><img src="<?=base_url() ?>img/icon.png"></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav">
 				<li class="nav-item <?php if( $this->uri->segment('1') == '') echo 'active'; ?>">
-					<a class="nav-link" href="<?=base_url() ?>">TRANG CHỦ </a>
+					<a class="nav-link" href="<?=base_url() ?>">Trang chủ </a>
 				</li>
-				<li class="nav-item dropdown <?php if( $this->uri->segment('1') == 'thucdon') echo 'active'; ?>">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">THỰC ĐƠN</a>
+				<li class="nav-item <?php if( $this->uri->segment('1') == 'phimbo') echo 'active'; ?>">
+					<a class="nav-link" href="<?=base_url('phimbo') ?>">Phim bộ</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Thể loại</a>
 					<div class="dropdown-menu bg-dark menu-drop" aria-labelledby="navbarDropdown">
 						<?php
-						$danhmuc = $this->mdanhmuc->get_danhmuc(0);
-					   	if(!empty($danhmuc))
+						$theloai = $this->mtheloai->theloai();
+					   	if(!empty($theloai))
 						{
-							foreach($danhmuc as $tmp)
+							foreach($theloai as $tmp)
 							{
 						?>
-						<a class="dropdown-item text-light" href="<?=base_url('thucdon/'.$tmp['tenkhongdau']) ?>"><?=mb_convert_case($tmp['tendanhmuc'], MB_CASE_UPPER, 'UTF-8') ?></a>
+						<a class="dropdown-item text-light" href="<?=base_url('theloai/'.$tmp['tentheloai_kd']) ?>"><?=$tmp['tentheloai'] ?></a>
 						<?php
 							}
 						}
 					   	?>
 					</div>
 				</li>
-				<li class="nav-item <?php if( $this->uri->segment('1') == 'gioithieu') echo 'active'; ?>">
-					<a class="nav-link" href="<?=base_url('gioithieu') ?>">GIỚI THIỆU </a>
-				</li>
-				<li class="nav-item <?php if( $this->uri->segment('1') == 'hinhanh') echo 'active'; ?>">
-					<a class="nav-link" href="<?=base_url('hinhanh') ?>">HÌNH ẢNH </a>
-				</li>
-				<li class="nav-item <?php if( $this->uri->segment('1') == 'lienhe') echo 'active'; ?>">
-					<a class="nav-link" href="<?=base_url('lienhe') ?>">LIÊN HỆ </a>
-				</li>
-				
 			</ul>
 			<form class="form-inline my-2 my-lg-0 form-timkiem ml-auto">
 				<input class="form-control mr-sm-2 bg-secondary text-light input-dark" type="search" placeholder="Tìm kiếm" aria-label="Search" id="timkiem">

@@ -9,7 +9,7 @@ class Home extends CI_Controller {
 	}
 	public function index()
 	{
-		$data['title'] = 'Trang chủ | phimmt';
+		$data['title'] = 'Trang chủ | Làng nướng Sao Mai';
 		$data['slide'] = 'home/slide';
 		$data['phimmoi'] = $this->mphim->phimmoicapnhat();
 		$theloai = $this->mtheloai->theloai();
@@ -26,7 +26,7 @@ class Home extends CI_Controller {
 		
 		$data['list_slide'] = $this->mslide->danhsach();
 		
-		$data['content'] = 'home/home';
+		$data['content'] = 'home/trangchu';
 		$this->load->view('index', $data);
 	}
 	public function trailer()
