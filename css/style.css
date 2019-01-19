@@ -253,3 +253,29 @@ footer {
 .bg-green {
 	background-color: #008000;
 }
+.owl-carousel .nav-link img {
+	height: 100px;
+	width: 100px !important;
+	padding: 5px;
+	border-radius: 50%;
+	border: 1px dashed #C6C6C6;
+	transition: all 0.3s ease 0s;
+}
+.owl-carousel .nav-link:hover img {
+	transform: scale(1.1);
+}
+.product h5 {
+	background-color: #FFFFFF;
+	padding: 10px;
+}
+.contact-home {
+	background: url("../img/bgdk.jpg") no-repeat;
+	background-size: 100% 100%;
+}
+.contact-home input {
+	background-color: rgba(0, 0, 0, 0.4);
+	border: 1px solid #705955;
+	color: #FFFFFF;
+}
+
+

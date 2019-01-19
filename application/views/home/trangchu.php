@@ -26,27 +26,52 @@
 		<h1 class="text-white text-center">THỰC ĐƠN LÀNG NƯỚNG SAO MAI</h1>
 		<img src="<?=base_url('img/bgkh.png') ?>" class="mx-auto d-block" alt="">
 		<div class="owl-carousel owl-theme" id="myTab">
-			<div class="item">
-				<a class="nav-link" href="#home">Home</a>
+			<?php
+			if(isset($danhmuc))
+			{
+				foreach($danhmuc as $item)
+				{
+			?>
+			<div class="item text-center">
+				<a class="nav-link" href="#thuc_don_<?=$item['tenkhongdau'] ?>">
+					<img class="mx-auto d-block" src="<?=base_url('img/'.$item['hinhanh']) ?>" alt="">
+				</a>
+				<h5 class="text-white"><?=$item['tendanhmuc'] ?></h5>
 			</div>
-			<div class="item">
-				<a class="nav-link" href="#menu1">Home</a>
-			</div>
-			<div class="item"><h4>3</h4></div>
-			<div class="item"><h4>4</h4></div>
-			<div class="item"><h4>5</h4></div>
-			<div class="item"><h4>6</h4></div>
-			<div class="item"><h4>7</h4></div>
-			<div class="item"><h4>8</h4></div>
-			<div class="item"><h4>9</h4></div>
-			<div class="item"><h4>10</h4></div>
-			<div class="item"><h4>11</h4></div>
-			<div class="item"><h4>12</h4></div>
+			<?php
+				}
+			}
+			?>
 		</div>
 		<div class="tab-content">
-			<div class="tab-pane fade" id="home">home</div>
-			<div class="tab-pane fade" id="menu1">menu 1</div>
-			<div class="tab-pane fade" id="menu2">...</div>
+			<?php
+			if(isset($sanpham))
+			{
+				foreach($sanpham as $k => $item)
+				{
+					if($k == 0 || $item['danhmuc'] != $sanpham[$k-1]['danhmuc'])
+					{
+						echo '<div class="tab-pane fade" id="thuc_don_'. $item['tenkhongdau'] .'">';
+						echo '<div class="row">';
+					}
+			?>
+				
+					<div class="col-md-3">
+						<div class="product">
+							<img src="<?=base_url('img/sanpham/'.$item['hinhanh_sp']) ?>" width="100%">
+							<h5 class="text-center"><?=$item['tensanpham'] ?></h5>
+						</div>
+					</div>
+				
+			<?php
+					if($k == count($sanpham) - 1 || $item['danhmuc'] != $sanpham[$k+1]['danhmuc'])
+					{
+						echo '</div>';
+						echo '</div>';
+					}
+				}
+			}
+			?>
 		</div>
 		<script>
 			$('.owl-carousel').owlCarousel({
@@ -62,11 +87,12 @@
 						items:3
 					},
 					1000:{
-						items:5
+						items:6
 					}
 				}
 			});
-			$('a.nav-link').click(function() {
+			$('a.nav-link').click(function(e) {
+				e.preventDefault();
 				var id = $(this).attr('href');
 				$('.tab-pane').removeClass('show active');
 				$(id).addClass('show active');
@@ -77,6 +103,30 @@
 		</script>
 		<div class="space50"></div>
 	</div>
+</div>
+<div class="contact-home">
+	<div class="space50"></div>
+	<div class="container">
+		<h1 class="text-center text-white">LIÊN HỆ ĐẶT BÀN</h1>
+		<p class="text-center text-white">Đăng ký ngay để được tư vấn nhanh nhất!</p>
+		<form action="<?=base_url() ?>" method="post" enctype="multipart/form-data">
+			<div class="row">
+				<div class="col-md-3">
+					<input type="email" name="email" class="form-control form-control-lg" id="email" placeholder="Email (*)">
+				</div>
+				<div class="col-md-3">
+					<input type="text" name="dienthoai" class="form-control form-control-lg" id="dienthoai" placeholder="Điện thoại (*)">
+				</div>
+				<div class="col-md-3">
+					<input type="text" name="noidung" class="form-control form-control-lg" id="noidung" placeholder="Nội dung">
+				</div>
+				<div class="col-md-3">
+					<button type="submit" name="dangky" class="btn btn-success btn-block btn-lg">Đăng ký</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="space50"></div>
 </div>
 <!-- The Modal -->
 <div class="modal fade" id="trailer">
@@ -106,4 +156,12 @@
 	$("#trailer").on('hidden.bs.modal', function () {
 		$('#trailer iframe').attr('src', '');
 	});
+	<?php
+	if(isset($result) && $result == 1)
+	{
+	?>
+	alert('Đăng ký thành công. Chúng tôi sẽ liên lạc trong thời gian sớm nhất.')
+	<?php
+	}
+	?>
 </script>

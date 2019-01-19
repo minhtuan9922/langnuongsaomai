@@ -6,25 +6,34 @@ class Home extends CI_Controller {
 		parent::__construct();
 		
 		$this->load->model('mslide');
+		$this->load->model('mlienhe');
 	}
 	public function index()
 	{
 		$data['title'] = 'Trang chủ | Làng nướng Sao Mai';
 		$data['slide'] = 'home/slide';
 		$data['phimmoi'] = $this->mphim->phimmoicapnhat();
+		$data['danhmuc'] = $this->mdanhmuc->get_danhmuc(0);
+		$data['sanpham'] = $this->msanpham->get_sanpham_danhmuc(0);
 		$theloai = $this->mtheloai->theloai();
 		
 		$result = array();
-		foreach($theloai as $item)
-		{
-			$result[] = array(
-				'theloai' => $item['tentheloai'],
-				'phim' => $this->mphim->get_list_phim($item['id_theloai'], 12, NULL, 'rand()'),
-			);
-		}
-		$data['list_phim'] = $result;
 		
 		$data['list_slide'] = $this->mslide->danhsach();
+		if(isset($_POST['dangky']))
+		{
+			$dat = array(
+				'email' => $this->input->post('email'),
+				'dienthoai' => $this->input->post('dienthoai'),
+				'noidung' => $this->input->post('noidung'),
+				'ngaythem' => date('Y-m-d H:i:s')
+			);
+			$kq = $this->mlienhe->themlienhe($dat);
+			if($kq > 0)
+			{
+				$data['result'] = 1;
+			}
+		}
 		
 		$data['content'] = 'home/trangchu';
 		$this->load->view('index', $data);

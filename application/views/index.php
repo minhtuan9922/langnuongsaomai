@@ -8,7 +8,7 @@
 	<meta name="Content-Type" content="">
 	<meta name="Description" content="">
 	<title><?php if(isset($title)) echo $title; else echo 'phimmt'; ?></title>
-	<link rel="icon" href="<?=base_url() ?>img/icon.png">
+	<link rel="icon" href="<?=base_url() ?>img/logo.png">
 	<link rel="stylesheet" href="<?=base_url() ?>css/bootstrap.css">
 	<link rel="stylesheet" href="<?=base_url() ?>css/style.css">
 	<link rel="stylesheet" href="<?=base_url() ?>fontawesome-free-5.0.6/web-fonts-with-css/css/fontawesome-all.css">
