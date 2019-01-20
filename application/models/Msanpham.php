@@ -18,18 +18,17 @@ class Msanpham extends CI_Model{
 		$this->db->order_by('sanpham.danhmuc', 'asc');
 		return $this->db->get()->result_array();
 	}
-	public function playphim($id)
+	public function get_sanpham($idsanpham)
 	{
-		$this->db->select('*');
-		$this->db->from('phim');
-		$this->db->where('id_phim', $id);
+		$this->db->from('sanpham');
+		$this->db->where('idsanpham', $idsanpham);
 		return $this->db->get()->row_array();
 	}
 	public function danhsach($start = NULL, $limit = NULL) 
 	{
-		$this->db->from('phim');
-		$this->db->where('active', 1); 
-		$this->db->order_by('ngay_them desc');
+		$this->db->from('sanpham');
+		$this->db->where('status', 1); 
+		$this->db->order_by('ngaythem desc');
 		if($limit != NULL && $start == NULL)
 		{
 			$this->db->limit($limit);
@@ -52,8 +51,8 @@ class Msanpham extends CI_Model{
 	}
 	public function capnhat($data = array(), $id) 
 	{
-		$this->db->where('id_phim',$id);
-        return $this->db->update('phim',$data);
+		$this->db->where('idsanpham',$id);
+        return $this->db->update('sanpham',$data);
 	}
 	public function chitietphim($id) 
 	{
@@ -62,34 +61,21 @@ class Msanpham extends CI_Model{
 		$this->db->where('active = 1');
         return $this->db->get()->row_array();
 	}
-	public function phimcungtheloai($data = array(), $id)
+	public function sanphamcungloai($iddanhmuc, $idsanpham)
 	{
-		if(!empty($data))
-		{
-			$sql = '(';
-			foreach($data as $item)
-			{
-				$sql .= 'theloai like \'%"'.$item.'"%\' or ';
-			}
-			$sql = rtrim($sql, ' or ');
-			$sql .= ')';
-			
-			$this->db->from('phim');
-			$this->db->where($sql);
-			$this->db->where('id_phim != '.$id);
-			$this->db->where('active = 1');
-			$this->db->order_by('id_phim', 'RANDOM');
-			$this->db->limit(6);
-			return $this->db->get()->result_array();
-		}
-		
-		
+		$this->db->from('sanpham');
+		$this->db->where('idsanpham != '.$idsanpham);
+		$this->db->where('danhmuc', $iddanhmuc);
+		$this->db->where('status = 1');
+		$this->db->order_by('idsanpham', 'RANDOM');
+		$this->db->limit(4);
+		return $this->db->get()->result_array();
 	}
-	public function get_list_phim($id_theloai, $limit = NULL, $start = NULL, $order = NULL)
+	public function get_list_sanpham($iddanhmuc, $limit = NULL, $start = NULL, $order = NULL)
 	{
-		$this->db->from('phim');
-		$this->db->where('active = 1');
-		$this->db->like('theloai', '"'.$id_theloai.'"');
+		$this->db->from('sanpham');
+		$this->db->where('status = 1');
+		$this->db->like('danhmuc', $iddanhmuc);
 		if($limit != NULL && $start == NULL)
 		{
 			$this->db->limit($limit);
@@ -104,11 +90,11 @@ class Msanpham extends CI_Model{
 		}
 		return $this->db->get()->result_array();
 	}
-	public function count_list_phim($id_theloai)
+	public function count_list_sanpham($iddanhmuc)
 	{
-		$this->db->from('phim');
-		$this->db->where('active = 1');
-		$this->db->like('theloai', '"'.$id_theloai.'"');
+		$this->db->from('sanpham');
+		$this->db->where('status = 1');
+		$this->db->like('danhmuc', $iddanhmuc);
 		return $this->db->count_all_results();
 	}
 	public function timphim($tukhoa)

@@ -253,20 +253,24 @@ footer {
 .bg-green {
 	background-color: #008000;
 }
-.owl-carousel .nav-link img {
+.owl-carousel .link-a img {
 	height: 100px;
 	width: 100px !important;
 	padding: 5px;
 	border-radius: 50%;
 	border: 1px dashed #C6C6C6;
 	transition: all 0.3s ease 0s;
+	margin-top: 10px;
 }
-.owl-carousel .nav-link:hover img {
+.owl-carousel .link-a:hover img {
 	transform: scale(1.1);
 }
 .product h5 {
 	background-color: #FFFFFF;
 	padding: 10px;
+}
+.product a {
+	text-decoration: none;
 }
 .contact-home {
 	background: url("../img/bgdk.jpg") no-repeat;
@@ -277,5 +281,28 @@ footer {
 	border: 1px solid #705955;
 	color: #FFFFFF;
 }
-
+.box-item {
+	display: flex;
+	flex-grow: 1;
+	border-bottom: 1px dashed #DCDCDC;
+	margin-bottom: 20px;
+}
+.box-item .item-img img {
+	border: 1px solid #DCDCDC;
+	padding: 5px;
+	border-radius: 50%;
+	transition: all 1s;
+	width: 117px;
+	height: 117px;
+}
+.box-item .item-img:hover {
+	opacity: 0.5;
+}
+.box-item .item-text {
+	padding-left: 15px;
+}
+footer {
+	background: url("../img/bgfooter.png") no-repeat;
+	background-size: 100% 100%;
+}
 

@@ -7,6 +7,7 @@ class Home extends CI_Controller {
 		
 		$this->load->model('mslide');
 		$this->load->model('mlienhe');
+		$this->load->model('mhinhanh');
 	}
 	public function index()
 	{
@@ -15,9 +16,6 @@ class Home extends CI_Controller {
 		$data['phimmoi'] = $this->mphim->phimmoicapnhat();
 		$data['danhmuc'] = $this->mdanhmuc->get_danhmuc(0);
 		$data['sanpham'] = $this->msanpham->get_sanpham_danhmuc(0);
-		$theloai = $this->mtheloai->theloai();
-		
-		$result = array();
 		
 		$data['list_slide'] = $this->mslide->danhsach();
 		if(isset($_POST['dangky']))
@@ -34,6 +32,8 @@ class Home extends CI_Controller {
 				$data['result'] = 1;
 			}
 		}
+		
+		$data['hinhanh'] = $this->mhinhanh->get_hinhanh();
 		
 		$data['content'] = 'home/trangchu';
 		$this->load->view('index', $data);

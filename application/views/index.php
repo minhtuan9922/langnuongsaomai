@@ -22,6 +22,10 @@
 	<script type="text/javascript" src="<?=base_url() ?>js/custom.js"></script>
 	<script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
 	<script src="<?=base_url() ?>owl/dist/owl.carousel.min.js"></script>
+	<link  href="<?=base_url() ?>fotorama-4.6.4/fotorama.css" rel="stylesheet">
+	<script src="<?=base_url() ?>fotorama-4.6.4/fotorama.js"></script>
+	<script src="<?=base_url() ?>viewer/viewer.js"></script>
+	<link  href="<?=base_url() ?>viewer/viewer.css" rel="stylesheet">
 </head>
 
 <body>

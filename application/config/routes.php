@@ -57,3 +57,7 @@ $route['xemphim/(:num)/(:any)'] = 'xemphim/index/$1';
 $route['theloai/(:any)'] = 'theloai/index/$1';
 $route['theloai/(:any)/(:num)'] = 'theloai/index/$1';
 $route['admin/phim/(:num)'] = 'admin/phim/index/$1';
+
+$route['thucdon/(:any)'] = 'thucdon/index/$1';
+$route['thucdon/(:any)/(:num)'] = 'thucdon/index/$1';
+$route['chitiet/(:num)/(:any)'] = 'chitiet/index/$1';
