@@ -7,29 +7,29 @@ class Mdanhmuc extends CI_Model{
 	parent::__construct();
 	}
 
-	public function themtheloai($data = array())
+	public function themdanhmuc($data = array())
 	{
-		$check_theloai = $this->check_id_theloai($data['tentheloai']);
+		$check_theloai = $this->check_id_danhmuc($data['tendanhmuc']);
 		if(!empty($check_theloai))
 		{
-			return $check_theloai['id_theloai'];
+			return $check_theloai['idanhmuc'];
 		}
 		else
 		{
-			$this->db->insert('theloai',$data);
+			$this->db->insert('danhmuc',$data);
 			return $this->db->insert_id();
 		}
 	}
-	public function capnhat($data = array(), $id_theloai) 
+	public function capnhat($data = array(), $iddanhmuc) 
 	{
-		$this->db->where('id_theloai',$id_theloai);
-        return $this->db->update('theloai',$data);
+		$this->db->where('iddanhmuc',$iddanhmuc);
+        return $this->db->update('danhmuc',$data);
 	}
-	public function check_id_theloai($tentheloai)
+	public function check_id_danhmuc($tendanhmuc)
 	{
 		$this->db->select('*');
-		$this->db->from('theloai');
-		$this->db->like('tentheloai', $tentheloai);
+		$this->db->from('danhmuc');
+		$this->db->like('tendanhmuc', $tendanhmuc);
 		return $this->db->get()->row_array();
 	}
 	public function check_id_danhmuc_kd($tenkhongdau)
@@ -53,9 +53,9 @@ class Mdanhmuc extends CI_Model{
 		$this->db->where('danhmuccha', $iddanhmuc);
 		return $this->db->get()->result_array();
 	}
-	public function list_theloai()
+	public function list_danhmuc()
 	{
-		$this->db->from('theloai');
+		$this->db->from('danhmuc');
 		return $this->db->get()->result_array();
 	}
 	public function xoa_theloai($id_theloai)

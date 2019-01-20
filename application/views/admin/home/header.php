@@ -7,14 +7,16 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-
+	<?php
+	$user = $this->madmin->get_user($_SESSION['admin_id']);
+	?>
 	<!-- Navbar links -->
 	<div class="collapse navbar-collapse" id="collapsibleNavbar">
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> Admin</a>
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> <?=$user['ten'] ?></a>
 				<div class="dropdown-menu bg-dark menu-drop" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item bg-dark text-light" href="#">Thông tin</a>
+					<a class="dropdown-item bg-dark text-light" href="<?=base_url('admin/user/chinhsua/'.$user['id']) ?>">Thông tin</a>
 					<a class="dropdown-item bg-dark text-light" href="<?=base_url('admin/login/dangxuat') ?>">Đăng xuất</a>
 				</div>
 			</li>
@@ -50,16 +52,16 @@
 		</div>
 		<div class="card">
 			<div class="card-header">
-				<a class="collapsed card-link text-light <?php if($this->uri->segment(2) == 'theloai') echo 'active'; ?>" data-toggle="collapse" data-parent="#accordion" href="#theloai"><i class="fas fa-list-ul"></i> Thể loại</a>
+				<a class="collapsed card-link text-light <?php if($this->uri->segment(2) == 'danhmuc') echo 'active'; ?>" data-toggle="collapse" data-parent="#accordion" href="#danhmuc"><i class="fas fa-list-ul"></i> Danh mục</a>
 			</div>
-			<div id="theloai" class="collapse <?php if($this->uri->segment(2) == 'theloai') echo 'show'; ?>">
+			<div id="danhmuc" class="collapse <?php if($this->uri->segment(2) == 'danhmuc') echo 'show'; ?>">
 				<div class="card-body">
 					<ul class="nav flex-column">
 						<li class="nav-item">
-							<a class="nav-link text-light <?php if($this->uri->uri_string() == 'admin/theloai') echo 'active'; ?>" href="<?=base_url('admin/theloai') ?>"><i class="fas fa-list-ul"></i> Danh sách</a>
+							<a class="nav-link text-light <?php if($this->uri->uri_string() == 'admin/danhmuc') echo 'active'; ?>" href="<?=base_url('admin/danhmuc') ?>"><i class="fas fa-list-ul"></i> Danh sách</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-light <?php if($this->uri->uri_string() == 'admin/theloai/them') echo 'active'; ?>" href="<?=base_url('admin/theloai/them') ?>"><i class="fas fa-plus"></i> Thêm thể loại</a>
+							<a class="nav-link text-light <?php if($this->uri->uri_string() == 'admin/danhmuc/them') echo 'active'; ?>" href="<?=base_url('admin/danhmuc/them') ?>"><i class="fas fa-plus"></i> Thêm danh mục</a>
 						</li>
 					</ul>
 				</div>
@@ -92,9 +94,11 @@
 						<li class="nav-item">
 							<a class="nav-link text-light <?php if($this->uri->uri_string() == 'admin/user') echo 'active'; ?>" href="<?=base_url('admin/user') ?>"><i class="fas fa-list-ul"></i> Danh sách</a>
 						</li>
+<!--
 						<li class="nav-item">
 							<a class="nav-link text-light <?php if($this->uri->uri_string() == 'admin/user/them') echo 'active'; ?>" href="<?=base_url('admin/user/them') ?>"><i class="fas fa-plus"></i> Thêm quản trị viên</a>
 						</li>
+-->
 					</ul>
 				</div>
 			</div>

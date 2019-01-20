@@ -13,7 +13,7 @@
 				<form action="<?=base_url('admin/user/chinhsua/'.$user['id']) ?>" method="post" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="account">Tài khoản <span class="text-red">*</span></label>
-						<input type="text" name="account" id="account" value="<?php if(set_value('account')) echo set_value('account'); else echo $user['account']; ?>" placeholder="Tài khoản" class="form-control <?php if(form_error('account')) echo 'is-invalid' ?>">
+						<input type="text" name="account" id="account" value="<?php if(set_value('account')) echo set_value('account'); else echo $user['account']; ?>" placeholder="Tài khoản" class="form-control <?php if(form_error('account')) echo 'is-invalid' ?>" readonly>
 						<div class="invalid-feedback"><?=form_error('account') ?></div>
 						<div class="space10"></div>
 					</div>
@@ -25,8 +25,15 @@
 					</div>
 					<div class="form-group">
 						<label for="password">Mật khẩu cũ</label>
-						<input type="password" name="password" id="password" value="<?php if(set_value('password')) echo set_value('password'); ?>" placeholder="Mật khẩu cũ" class="form-control <?php if(form_error('password')) echo 'is-invalid' ?>">
-						<div class="invalid-feedback"><?=form_error('password') ?></div>
+						<input type="password" name="password" id="password" value="<?=isset($password) ? $password : '' ?>" placeholder="Mật khẩu cũ" class="form-control <?php if(isset($error_password)) echo 'is-invalid' ?>">
+						<?php
+						if(isset($error_password))
+						{
+						?>
+						<div class="invalid-feedback"><?=$error_password ?></div>
+						<?php
+						}
+						?>
 						<div class="space10"></div>
 					</div>
 					<div class="form-group">
@@ -43,11 +50,11 @@
 					</div>
 					<div class="form-group">
 						<label for="background">Trạng thái</label>
-						<select name="chonphim" class="form-control" id="chonphim">
+						<select name="active" class="form-control" id="active">
 							<option value="1" <?=$user['active'] == 1 ? 'selected' : '' ?>>Hoạt động</option>
 							<option value="0" <?=$user['active'] == 0 ? 'selected' : '' ?>>Đình chỉ</option>
 						</select>
-						<div class="invalid-feedback"><?=form_error('chonphim') ?></div>
+						<div class="invalid-feedback"><?=form_error('active') ?></div>
 					</div>
 					<button type="submit" name="chinhsua" class="btn btn-primary">Lưu</button>
 				</form>

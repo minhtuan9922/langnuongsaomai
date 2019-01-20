@@ -17,6 +17,13 @@ class User extends CI_Controller {
 		$data['title'] = 'Quản trị viên | phimmt';
 		$data['content'] = 'admin/user/danhsach';
 		$data['users'] = $this->madmin->danhsach();
+		
+		if(isset($_SESSION['success']))
+		{
+			$data['success'] = $_SESSION['success'];
+			unset($_SESSION['success']);
+		}
+		
 		$this->load->view('admin/layout', $data);
 	}
 	public function them()
@@ -80,55 +87,37 @@ class User extends CI_Controller {
 		$data['title'] = 'Chỉnh sửa quảng trị viên';
 		$data['content'] = 'admin/user/chinhsua';
 		
-		$data['user'] = $this->madmin->get_user($id);
+		$data['user'] = $user = $this->madmin->get_user($id);
+		$password = $user['password'];
 		
 		if(isset($_POST['chinhsua']))
 		{
 			$this->form_validation->set_rules('account', 'tài khoản', 'required', array('required' => 'Vui lòng nhập %s'));
-			$this->form_validation->set_rules('poster', 'họ tên', 'required', array('required' => 'Vui lòng nhập %s'));
-			if($this->input->post['password'] != '')
+			$this->form_validation->set_rules('ten', 'họ tên', 'required', array('required' => 'Vui lòng nhập %s'));
+			if($this->input->post('password') != '')
 			{
-				$this->form_validation->set_rules('password', '', '');
+				if(md5($this->input->post('password')) != $password)
+				{
+					$data['error_password'] = 'Mật khẩu cũ không đúng';
+					$data['password'] = $this->input->post('password');
+				}
+				$this->form_validation->set_rules('password_new', 'Mật khẩu mới', 'required', array('required' => 'Vui lòng nhập %s'));
+				$this->form_validation->set_rules('re_password_new', 'Mật khẩu mới', 'required|matches[password_new]', array('required' => 'Vui lòng xác nhận %s', 'matches' => '%s không khớp'));
 			}
 
-			if($this->form_validation->run() != FALSE)
+			if($this->form_validation->run() != FALSE && !isset($data['error_password']))
 			{
-				$phim = $this->mphim->chitietphim($this->input->post('chonphim'));
-				$tenhinh = $this->chuanhoa->gach_noi($phim['tenphim_en']);
-				$config['upload_path'] = 'img/slide/';
-				$config['allowed_types'] = 'gif|jpg|png';
-				$config['file_name'] = $tenhinh;
-				$this->load->library("upload", $config);
-				if($this->upload->do_upload('background'))
-				{
-					$img = $this->upload->data();
-					$background = $img['file_name'];
-					$conf['image_library'] = 'gd2';
-					$conf['source_image'] = $config['upload_path'].$img['file_name'];
-					$conf['create_thumb'] = false;
-					$conf['maintain_ratio'] = false;
-					$conf['width']         = 1920;
-					$conf['height']       = 1080;
-					$this->load->library('image_lib', $conf);
-					$this->image_lib->resize();
-				}
-				else
-				{
-					$background = $data['slide']['background'];
-				}
 				$dat = array(
-					'id_phim' => $this->input->post('chonphim'),
-					'poster' => $this->input->post('poster'),
-					'background' => $background,
-					'status' => 1,
-					'vitri' => $this->input->post('thutu'),
+					'ten' => $this->input->post('ten'),
+					'password' => $this->input->post('password') != '' ? md5($this->input->post('password_new')) : $password,
+					'active' => $this->input->post('active'),
 				);
-				$kq = $this->mslide->capnhat($dat, $id);
+				$kq = $this->madmin->capnhat($dat, $id);
 			
 				if($kq == true)
 				{
-					$_SESSION['success'] = 'Chỉnh sửa slide thành công!';
-					redirect(base_url('admin/slide'));
+					$_SESSION['success'] = 'Chỉnh sửa thành công!';
+					redirect(base_url('admin/user'));
 				}
 			}
 		}
