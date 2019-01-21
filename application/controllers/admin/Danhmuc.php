@@ -38,7 +38,7 @@ class Danhmuc extends CI_Controller {
 		$data['content'] = 'admin/danhmuc/them';
 		if(isset($_POST['them']))
 		{
-			$this->form_validation->set_rules('tendanhmuc', 'tên danh muc', 'required', array('required' => 'Vui lòng nhập %s'));
+			$this->form_validation->set_rules('tendanhmuc', 'tên danh mục', 'required', array('required' => 'Vui lòng nhập %s'));
 
 			if($this->form_validation->run() != FALSE)
 			{
@@ -99,37 +99,83 @@ class Danhmuc extends CI_Controller {
 	{
 		$data['title'] = 'Chỉnh sửa danh mục';
 		
-		if(isset($_POST['luu']))
+		if(isset($_POST['sua']))
 		{
-			$dat['tentheloai'] = trim($this->input->post('tentheloai'));
-			$dat['tentheloai_kd'] = trim($this->input->post('tentheloai_kd'));
-			$kq = $this->mtheloai->capnhat($dat, $id);
-			if(!empty($kq))
+			$this->form_validation->set_rules('tendanhmuc', 'tên danh mục', 'required', array('required' => 'Vui lòng nhập %s'));
+			$this->form_validation->set_rules('tenkhongdau', 'tên danh mục không dấu', 'required', array('required' => 'Vui lòng nhập %s'));
+
+			if($this->form_validation->run() != FALSE)
 			{
-				$_SESSION['success'] = 'Chỉnh sửa danh mục thành công!';
-			}
-			redirect(base_url('admin/theloai'));
-		}
-		
-		$data['theloai'] = $this->mtheloai->thongtin_theloai($id);
-		$data['content'] = 'admin/theloai/chinhsua';
-		$this->load->view('admin/layout', $data);
-	}
-	public function xoa_theloai()
-	{
-		if(isset($_POST['id_theloai']))
-		{
-			$id_theloai = $this->input->post('id_theloai');
-			
-			$kq = $this->mtheloai->xoa_theloai($id_theloai);
-			if($kq == true)
-			{
-				echo 'Xóa thành công.';
+				$dat['tendanhmuc'] = trim($this->input->post('tendanhmuc'));
+				$dat['tenkhongdau'] = trim($this->input->post('tenkhongdau'));
+
+				$config['upload_path'] = 'img/';
+				$config['allowed_types'] = 'gif|jpg|png';
+				$config['file_name'] = $dat['tenkhongdau'];
+				$this->load->library("upload", $config);
+
+				if($this->upload->do_upload('hinhanh'))
+				{
+					$img = $this->upload->data();
+					$hinhanh = $img['file_name'];
+					$conf['image_library'] = 'gd2';
+					$conf['source_image'] = $config['upload_path'].$img['file_name'];
+					$conf['create_thumb'] = false;
+					$conf['maintain_ratio'] = false;
+					if($img['image_width'] > $img['image_height'])
+					{
+						//$conf['master_dim'] = 'height';
+						$conf['width']         = $img['image_height'];
+						$conf['height']       = $img['image_height'];
+					}
+					else
+					{
+						//$conf['master_dim'] = 'width';
+						$conf['width']         = $img['image_width'];
+						$conf['height']       = $img['image_width'];
+					}
+					$this->load->library('image_lib', $conf);
+					$this->image_lib->crop();
+				}
+				else
+				{
+					$hinhanh = $this->input->post['hinhanhcu'];
+				}
+				$dat['hinhanh'] = $hinhanh;
+				$iddanhmuc = $this->mdanhmuc->capnhat($dat, $id);
+				if(!empty($iddanhmuc))
+				{
+					$_SESSION['success'] = 'Thêm danh mục thành công!';
+				}
+				redirect(base_url('admin/danhmuc'));
 			}
 			else
 			{
-				echo 'Lỗi';
+				$this->load->view('admin/layout', $data); 
 			}
 		}
+		
+		$data['danhmuc'] = $this->mdanhmuc->thongtin_danhmuc($id);
+		$data['content'] = 'admin/danhmuc/chinhsua';
+		$this->load->view('admin/layout', $data);
+	}
+	public function xoa_danhmuc()
+	{
+		$json = array();
+		if(isset($_POST['iddanhmuc']))
+		{
+			$iddanhmuc = $this->input->post('iddanhmuc');
+			
+			$kq = $this->mdanhmuc->xoa_danhmuc($iddanhmuc);
+			if($kq == true)
+			{
+				$json['success'] = 'Xóa thành công.';
+			}
+			else
+			{
+				$json['error'] = 'Lỗi';
+			}
+		}
+		echo json_encode($json);
 	}
 }

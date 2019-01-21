@@ -65,6 +65,7 @@
 		var r = confirm('Bạn có thật sự muốn xóa danh mục này?');
 		if(r == true) {
 			$.ajax({
+				dataType: "JSON",
 				method: "POST",
 				url: "<?=base_url('admin/danhmuc/xoa_danhmuc'); ?>",
 				data:{iddanhmuc: id},

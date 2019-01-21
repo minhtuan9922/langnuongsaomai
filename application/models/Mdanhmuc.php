@@ -39,11 +39,11 @@ class Mdanhmuc extends CI_Model{
 		$this->db->like('tenkhongdau', $tenkhongdau);
 		return $this->db->get()->row_array();
 	}
-	public function thongtin_theloai($id)
+	public function thongtin_danhmuc($iddanhmuc)
 	{
 		$this->db->select('*');
-		$this->db->from('theloai');
-		$this->db->where('id_theloai', $id);
+		$this->db->from('danhmuc');
+		$this->db->where('iddanhmuc', $iddanhmuc);
 		return $this->db->get()->row_array();
 	}
 	public function get_danhmuc($iddanhmuc)
@@ -58,9 +58,9 @@ class Mdanhmuc extends CI_Model{
 		$this->db->from('danhmuc');
 		return $this->db->get()->result_array();
 	}
-	public function xoa_theloai($id_theloai)
+	public function xoa_danhmuc($iddanhmuc)
 	{
-		$this->db->where('id_theloai', $id_theloai);
-		return $this->db->delete('theloai');
+		$this->db->where('iddanhmuc', $iddanhmuc);
+		return $this->db->delete('danhmuc');
 	}
 }

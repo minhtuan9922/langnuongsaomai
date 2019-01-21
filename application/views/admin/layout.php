@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><?php if(isset($title)) echo $title; else echo 'phimmt'; ?></title>
-	<link rel="icon" href="<?=base_url('asset/') ?>img/icon.png">
+	<link rel="icon" href="<?=base_url() ?>img/logo.png">
 	<link rel="stylesheet" href="<?=base_url('asset/') ?>css/bootstrap.css">
 	<link rel="stylesheet" href="<?=base_url('asset/') ?>css/style.css">
 	<link rel="stylesheet" href="<?=base_url('asset/') ?>css/alertify.min.css">
@@ -18,6 +18,9 @@
 	<script type="text/javascript" src="<?=base_url('asset/') ?>js/scrollreveal.min.js"></script>
 	<script type="text/javascript" src="<?=base_url('asset/') ?>js/alertify.min.js"></script>
 	<script type="text/javascript" src="<?=base_url('asset/') ?>js/custom.js"></script>
+	<link href="<?=base_url() ?>asset/css/froala_editor.pkgd.min.css" rel="stylesheet">
+	<script src="<?=base_url() ?>asset/js/froala_editor.pkgd.min.js"></script>
+	<script src="<?=base_url() ?>asset/js/languages/vi.js"></script>
 </head>
 
 <body>

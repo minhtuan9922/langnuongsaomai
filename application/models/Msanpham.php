@@ -26,8 +26,10 @@ class Msanpham extends CI_Model{
 	}
 	public function danhsach($start = NULL, $limit = NULL) 
 	{
-		$this->db->from('sanpham');
-		$this->db->where('status', 1); 
+		$this->db->select('s.*, d.tendanhmuc');
+		$this->db->from('sanpham s, danhmuc d');
+		$this->db->where('s.status', 1); 
+		$this->db->where('s.danhmuc = d.iddanhmuc'); 
 		$this->db->order_by('ngaythem desc');
 		if($limit != NULL && $start == NULL)
 		{
@@ -40,8 +42,8 @@ class Msanpham extends CI_Model{
 		return $this->db->get()->result_array();
 	}
 	public function countAll(){
-		$this->db->from('phim');
-		$this->db->where('active', 1); 
+		$this->db->from('sanpham');
+		$this->db->where('status', 1); 
 		return $this->db->count_all_results(); 
 	}
 	public function themphim($data = array())
