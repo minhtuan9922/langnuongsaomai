@@ -46,9 +46,9 @@ class Msanpham extends CI_Model{
 		$this->db->where('status', 1); 
 		return $this->db->count_all_results(); 
 	}
-	public function themphim($data = array())
+	public function themsanpham($data = array())
 	{
-		$this->db->insert('phim',$data);
+		$this->db->insert('sanpham',$data);
 		return $this->db->insert_id();
 	}
 	public function capnhat($data = array(), $id) 

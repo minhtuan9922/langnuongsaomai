@@ -2,7 +2,7 @@
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="<?=base_url('admin') ?>">Trang chủ</a></li>
-			<li class="breadcrumb-item active" aria-current="page">Phim</li>
+			<li class="breadcrumb-item active" aria-current="page">Sản phẩm</li>
 		</ol>
 	</nav>
 	<div class="main">

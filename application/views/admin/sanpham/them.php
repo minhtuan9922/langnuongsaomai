@@ -2,7 +2,7 @@
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="<?=base_url('admin') ?>">Trang chủ</a></li>
-			<li class="breadcrumb-item"><a href="<?=base_url('admin/phim') ?>">Phim</a></li>
+			<li class="breadcrumb-item"><a href="<?=base_url('admin/phim') ?>">Sản phẩm</a></li>
 			<li class="breadcrumb-item active" aria-current="page"><?=$title ?></li>
 		</ol>
 	</nav>
@@ -10,92 +10,86 @@
 		<div class="card">
 			<div class="card-header bg-info text-white"><?=$title ?></div>
 			<div class="card-body">
-				<form action="<?=base_url('admin/phim/themphim') ?>" method="post" enctype="multipart/form-data">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="form-group">
-								<label for="tenphim_vn">Tựa Tiếng Việt</label>
-								<input type="text" class="form-control" id="tenphim_vn" name="tenphim_vn" required>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="form-group">
-								<label for="tenphim_en">Tựa Tiếng Anh</label>
-								<input type="text" class="form-control" id="tenphim_en" name="tenphim_en" required>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="form-group">
-								<label for="daodien">Đạo diễn</label>
-								<input type="text" class="form-control" id="daodien" name="daodien">
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="form-group">
-								<label for="kichban">Kịch bản</label>
-								<input type="text" class="form-control" id="kichban" name="kichban">
-							</div>
-						</div>
+				<form action="<?=base_url('admin/sanpham/themsanpham') ?>" method="post" enctype="multipart/form-data">
+					<div class="form-group">
+						<label for="tensanpham">Tên sản phẩm</label>
+						<input type="text" class="form-control <?php if(form_error('tensanpham')) echo 'is-invalid'; ?>" id="tensanpham" name="tensanpham" required placeholder="Tên sản phẩm" value="<?php if(set_value('tensanpham')) echo set_value('tensanpham'); ?>">
+						<div class="invalid-feedback"><?=form_error('tensanpham') ?></div>
 					</div>
 					<div class="form-group">
-						<label for="dienvien">Diễn viên</label>
-						<input type="text" class="form-control" id="dienvien" name="dienvien">
+						<label for="mota">Mô tả</label>
+						<textarea type="text" class="form-control" id="mota" name="mota" rows="6" placeholder="Mô tả"><?php if(set_value('mota')) echo set_value('mota'); ?></textarea>
 					</div>
 					<div class="form-group">
-						<label for="theloai">Thể loại</label>
-						<input type="" class="form-control" id="theloai" name="theloai">
+						<label for="gia">Giá</label>
+						<input type="text" class="form-control <?php if(form_error('gia')) echo 'is-invalid' ?>" id="gia" name="gia" placeholder="Giá" required value="<?php if(set_value('gia')) echo set_value('gia'); ?>">
+						<div class="invalid-feedback"><?=form_error('gia') ?></div>
 					</div>
-					<div class="row">
-						<div class="col-lg-4">
-							<div class="form-group">
-								<label for="nam_sanxuat">Năm sản xuất</label>
-								<input type="number" class="form-control" id="nam_sanxuat" name="nam_sanxuat">
-							</div>
-						</div>
-						<div class="col-lg-4">
-							<div class="form-group">
-								<label for="thoiluong">Thời lượng</label>
-								<input type="text" class="form-control" id="thoiluong" name="thoiluong">
-							</div>
-						</div>
-						<div class="col-lg-4">
-							<div class="form-group">
-								<label for="diem_imdb">Điểm IMDB</label>
-								<input type="text" class="form-control" id="diem_imdb" name="diem_imdb">
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="link_phude">Link phụ đề</label>
-						<input type="text" class="form-control" id="link_phude" name="link_phude">
-					</div>
-					<div class="form-group">
-						<label for="link_thuyetminh">Link thuyết minh</label>
-						<input type="text" class="form-control" id="link_thuyetminh" name="link_thuyetminh">
-					</div>
-					<div class="form-group">
-						<label for="gioithieu">Giới thiệu</label>
-						<textarea type="text" class="form-control" id="gioithieu" name="gioithieu" rows="6"></textarea>
+					<div class="grom-group">
+						<label for="danhmuc">Danh mục</label>
+						<select name="danhmuc" id="danhmuc" class="form-control <?php if(form_error('danhmuc')) echo 'is-invalid' ?>">
+							<option value="" selected disabled>Chọn danh mục</option>
+							<?php
+							if(isset($list_danhmuc))
+							{
+								foreach($list_danhmuc as $item)
+								{
+									if(set_value('danhmuc') == $item['iddanhmuc'])
+									{
+							?>
+							<option value="<?=$item['iddanhmuc'] ?>" selected><?=$item['tendanhmuc'] ?></option>
+							<?php
+									}
+									else
+									{
+							?>
+							<option value="<?=$item['iddanhmuc'] ?>"><?=$item['tendanhmuc'] ?></option>
+							<?php
+									}
+								}
+							}
+							?>
+						</select>
+						<div class="invalid-feedback"><?=form_error('danhmuc') ?></div>
 					</div>
 					<div class="form-group">
-						<label for="trailer">Trailer</label>
-						<input type="text" class="form-control" id="trailer" name="trailer">
-					</div>
-					<div class="form-group">
-						<label for="poster">Poster</label>
-						<input type="file" class="form-control" id="poster" name="poster">
+						<label for="hinhanh">Hình ảnh</label>
+						<input type="file" class="form-control" id="hinhanh" name="hinhanh" placeholder="Hình ảnh">
 						<div class="space10"></div>
 						<img src="" id="images" width="200px" class="mx-auto d-block img-thumbnail">
 					</div>
+<!--
+					<div class="grom-group">
+						<label for="status">Danh mục</label>
+						<select name="status" id="status" class="form-control">
+							<option value="1" <?=set_value('status') == 1 ? 'selected' : '' ?>>Hoạt động</option>
+							<option value="0" <?=set_value('status') === 0 ? 'selected' : '' ?>>Vô hiệu hóa</option>
+						</select>
+					</div>
+-->
 					<div class="form-check">
 						<label class="form-check-label">
-					  		<input class="form-check-input" type="checkbox" name="phimbo" value="1"> Phim bộ
+					  		<input class="form-check-input" type="checkbox" name="moi" value="1" <?php if(set_value('moi') == 1) echo 'checked'; ?> > Món mới
 						</label>
 					</div>
-					<button type="submit" name="themphim" class="btn btn-primary">Thêm phim</button>
-					<button class="btn btn-info" data-toggle="modal" data-target="#myModal" id="docfile_xml">Đọc file XML</button>
+					<div class="form-check">
+						<label class="form-check-label">
+					  		<input class="form-check-input" type="checkbox" name="trangchu" value="1" <?php if(set_value('trangchu') == 1) echo 'checked'; ?>> Hiển thị trên trang chủ
+						</label>
+					</div>
+					<div class="form-group">
+						<label for="themeta">Thẻ meta</label>
+						<input type="text" class="form-control" id="themeta" name="themeta" placeholder="Thẻ meta" value="<?php if(set_value('themeta')) echo set_value('themeta'); ?>">
+					</div>
+					<div class="form-group">
+						<label for="keymeta">Từ khóa thẻ meta</label>
+						<input type="text" class="form-control" id="keymeta" name="keymeta" placeholder="Từ khóa thẻ meta" value="<?php if(set_value('keymeta')) echo set_value('keymeta'); ?>">
+					</div>
+					<div class="form-group">
+						<label for="motameta">Mô tả thẻ meta</label>
+						<input type="text" class="form-control" id="motameta" name="motameta" placeholder="Mô tả thẻ meta" value="<?php if(set_value('motameta')) echo set_value('motameta'); ?>">
+					</div>
+					<button type="submit" name="themsanpham" class="btn btn-primary">Thêm sản phẩm</button>
 				</form>
 			</div>
 		</div>
@@ -154,7 +148,7 @@
 	}
 	function chonhinh() 
 	{}
-	$('#poster').change(function () {
+	$('#hinhanh').change(function () {
         if ( window.FileReader ) {
             var reader = new FileReader();
             reader.onload = function (e) {

@@ -76,138 +76,170 @@ class Sanpham extends CI_Controller {
 	{
 		$data['title'] = 'Thêm sản phẩm mới';
 		$data['content'] = 'admin/sanpham/them';
+		$data['list_danhmuc'] = $this->mdanhmuc->list_danhmuc();
 		if(isset($_POST['themsanpham']))
 		{
-			$this->form_validation->set_rules('tendanhmuc', 'tên danh mục', 'required', array('required' => 'Vui lòng nhập %s'));
-			$this->form_validation->set_rules('tenkhongdau', 'tên danh mục không dấu', 'required', array('required' => 'Vui lòng nhập %s'));
+			$this->form_validation->set_rules('tensanpham', 'tên sản phẩm', 'required', array('required' => 'Vui lòng nhập %s'));
+			$this->form_validation->set_rules('gia', 'giá', 'required|integer', array('required' => 'Vui lòng nhập %s', 'integer' => 'Giá phải là số'));
+			$this->form_validation->set_rules('danhmuc', 'danh mục', 'required', array('required' => 'Vui lòng chọn %s'));
 
 			if($this->form_validation->run() != FALSE)
 			{
-				$tenphim_vn = $this->input->post('tenphim_vn');
-				$tenphim_en = $this->input->post('tenphim_en');
-				$daodien = $this->input->post('daodien');
-				$kichban = explode(',',$this->input->post('kichban')); 
-				$dienvien = explode(',',$this->input->post('dienvien'));
-				$nam_sanxuat = $this->input->post('nam_sanxuat');
-				$theloai = explode(',',$this->input->post('theloai'));
-				$thoiluong = $this->input->post('thoiluong');
-				$diem_imdb = $this->input->post('diem_imdb');
+				$tensanpham = $this->input->post('tensanpham');
+				$mota = $this->input->post('mota');
+				$gia = $this->input->post('gia');
+				$danhmuc = $this->input->post('danhmuc');
+				//$status = $this->input->post('status');
+				$moi = !empty($this->input->post('moi')) ? $this->input->post('moi') : 0;
+				$trangchu = !empty($this->input->post('trangchu')) ? $this->input->post('trangchu') : 0;
+				$themeta = $this->input->post('themeta');
+				$keymeta = $this->input->post('keymeta');
+				$motameta = $this->input->post('motameta');
 
-				$link_phude = strstr($this->input->post('link_phude'), '=');
-				$link_phude = ltrim($link_phude, '=');
-				if($link_phude != '')
-				{
-					$link_phude = 'https://drive.google.com/file/d/'.$link_phude.'/preview';
-				}
-
-				$link_thuyetminh = strstr($this->input->post('link_thuyetminh'), '=');
-				$link_thuyetminh = ltrim($link_thuyetminh, '=');
-				if($link_thuyetminh != '')
-				{
-					$link_thuyetminh = 'https://drive.google.com/file/d/'.$link_thuyetminh.'/preview';
-				}
-
-				$gioithieu = $this->input->post('gioithieu');
-
-				$trailer = strstr($this->input->post('trailer'), '=');
-				$trailer = ltrim($trailer, '=');
-				if($trailer != '')
-				{
-					$trailer = 'https://www.youtube.com/embed/'.$trailer;
-				}
-
-				$phimbo = $this->input->post('phimbo');
-
-				if(empty($phimbo))
-				{
-					$phimbo = 0;
-				}
-
-				$tenhinh = $this->chuanhoa->gach_noi($tenphim_en);
-				$config['upload_path'] = 'img/poster/';
+				$tenhinh = $this->chuanhoa->convert_vi_to_en(trim($tensanpham));
+				$config['upload_path'] = 'img/sanpham/';
 				$config['allowed_types'] = 'gif|jpg|png';
 				$config['file_name'] = $tenhinh;
 				$this->load->library("upload", $config);
 
-				if($this->upload->do_upload('poster'))
+				if($this->upload->do_upload('hinhanh'))
 				{
 					$img = $this->upload->data();
-					$poster = $img['file_name'];
+					$hinhanh = $img['file_name'];
 					$conf['image_library'] = 'gd2';
 					$conf['source_image'] = $config['upload_path'].$img['file_name'];
 					$conf['create_thumb'] = false;
 					$conf['maintain_ratio'] = false;
-					$conf['width']         = 500;
-					$conf['height']       = 750;
+					if($img['image_width'] > ($img['image_height'] * 4 / 3))
+					{
+						$conf['width'] = $img['image_height'] * 4 / 3;
+						$conf['height'] = $img['image_height'];
+					}
+					else
+					{
+						$conf['width'] = $img['image_width'];
+						$conf['height'] = $img['image_width'] * 3 / 4;
+					}
 					$this->load->library('image_lib', $conf);
-					$this->image_lib->resize();
+					$this->image_lib->crop();
 				}
 				else
 				{
-					$poster = '';
+					$hinhanh = '';
 				}
-				$dat_daodien = array(
-					'ten_daodien' => trim($daodien),
-					'ten_daodien_kd' => $this->chuanhoa->convert_vi_to_en(trim($daodien)),
-				);
-				$id_daodien = $this->mdaodien->themdaodien($dat_daodien);
-				$dat_kichban = array();
-				if(!empty($kichban))
-				{
-					foreach($kichban as $key => $item)
-					{
-						$tam['kichban'] = trim($item);
-						$tam['kichban_kd'] = $this->chuanhoa->convert_vi_to_en(trim($item));
-						$id_kichban = $this->mkichban->themkichban($tam);
-						$dat_kichban[] = $id_kichban;
-					}
-				}
-				$dat_dienvien = array();
-				if(!empty($dienvien))
-				{
-					foreach($dienvien as $item)
-					{
-						$tam1['ten_dienvien'] = trim($item);
-						$tam1['ten_dienvien_kd'] = $this->chuanhoa->convert_vi_to_en(trim($item));
-						$id_dienvien = $this->mdienvien->themdienvien($tam1);
-						$dat_dienvien[] = $id_dienvien;
-					}
-				}
-				$dat_theloai = array();
-				if(!empty($theloai))
-				{
-					foreach($theloai as $item)
-					{
-						$tam2['tentheloai'] = trim($item);
-						$tam2['tentheloai_kd'] = $this->chuanhoa->convert_vi_to_en(trim($item));
-						$id_theloai = $this->mtheloai->themtheloai($tam2);
-						$dat_theloai[] = (string)$id_theloai;
-					}
-				}
+				
 				$dat = array(
-					'tenphim_vn' => $tenphim_vn,
-					'tenphim_en' => $tenphim_en,
-					'daodien' => $id_daodien,
-					'kichban' => json_encode($dat_kichban),
-					'dienvien' => json_encode($dat_dienvien),
-					'theloai' => json_encode($dat_theloai),
-					'nam_sanxuat' => $nam_sanxuat,
-					'thoiluong' => $thoiluong,
-					'diem_imdb' => $diem_imdb,
-					'link_phude' => $link_phude,
-					'link_thuyetminh' => $link_thuyetminh,
-					'poster' => $poster,
-					'gioithieu' => $gioithieu,
-					'phimbo' => $phimbo,
-					'trailer' => $trailer,
-					'ngay_them' => date('Y-m-d H:i:s'),
+					'tensanpham' => $tensanpham,
+					'mota' => $mota,
+					'gia' => $gia,
+					'danhmuc' => $danhmuc,
+					//'status' => $status,
+					'moi' => $moi,
+					'trangchu' => $trangchu,
+					'hinhanh' => $hinhanh,
+					'themeta' => $themeta,
+					'keymeta' => $keymeta,
+					'motameta' => $motameta,
+					'ngaythem' => date('Y-m-d H:i:s'),
 				);
-				$id_phim = $this->mphim->themphim($dat);
-				if($id_phim)
+				$idsanpham = $this->msanpham->themsanpham($dat);
+				if($idsanpham)
 				{
-					$_SESSION['success'] = 'Thêm phim thành công!';
-					redirect(base_url('admin/phim'));
+					$_SESSION['success'] = 'Thêm sản phẩm thành công!';
+					redirect(base_url('admin/sanpham'));
 				}
+			}
+			else
+			{
+				$this->load->view('admin/layout', $data); 
+			}
+		}
+		else 
+		{
+			$this->load->view('admin/layout', $data); 
+		}
+	}
+	public function chinhsua($id)
+	{
+		$data['title'] = 'Chỉnh sửa sản phẩm mới';
+		$data['content'] = 'admin/sanpham/chinhsua';
+		$data['list_danhmuc'] = $this->mdanhmuc->list_danhmuc();
+		$data['sanpham'] = $this->msanpham->get_sanpham($id);
+		if(isset($_POST['chinhsua']))
+		{
+			$this->form_validation->set_rules('tensanpham', 'tên sản phẩm', 'required', array('required' => 'Vui lòng nhập %s'));
+			$this->form_validation->set_rules('gia', 'giá', 'required|integer', array('required' => 'Vui lòng nhập %s', 'integer' => 'Giá phải là số'));
+			$this->form_validation->set_rules('danhmuc', 'danh mục', 'required', array('required' => 'Vui lòng chọn %s'));
+
+			if($this->form_validation->run() != FALSE)
+			{
+				$tensanpham = $this->input->post('tensanpham');
+				$mota = $this->input->post('mota');
+				$gia = $this->input->post('gia');
+				$danhmuc = $this->input->post('danhmuc');
+				//$status = $this->input->post('status');
+				$moi = !empty($this->input->post('moi')) ? $this->input->post('moi') : 0;
+				$trangchu = !empty($this->input->post('trangchu')) ? $this->input->post('trangchu') : 0;
+				$themeta = $this->input->post('themeta');
+				$keymeta = $this->input->post('keymeta');
+				$motameta = $this->input->post('motameta');
+
+				$tenhinh = $this->chuanhoa->convert_vi_to_en(trim($tensanpham));
+				$config['upload_path'] = 'img/sanpham/';
+				$config['allowed_types'] = 'gif|jpg|png';
+				$config['file_name'] = $tenhinh;
+				$this->load->library("upload", $config);
+
+				if($this->upload->do_upload('hinhanh'))
+				{
+					$img = $this->upload->data();
+					$hinhanh = $img['file_name'];
+					$conf['image_library'] = 'gd2';
+					$conf['source_image'] = $config['upload_path'].$img['file_name'];
+					$conf['create_thumb'] = false;
+					$conf['maintain_ratio'] = false;
+					if($img['image_width'] > ($img['image_height'] * 4 / 3))
+					{
+						$conf['width'] = $img['image_height'] * 4 / 3;
+						$conf['height'] = $img['image_height'];
+					}
+					else
+					{
+						$conf['width'] = $img['image_width'];
+						$conf['height'] = $img['image_width'] * 3 / 4;
+					}
+					$this->load->library('image_lib', $conf);
+					$this->image_lib->crop();
+				}
+				else
+				{
+					$hinhanh = $this->input->post('hinhanhcu');
+				}
+				
+				$dat = array(
+					'tensanpham' => $tensanpham,
+					'mota' => $mota,
+					'gia' => $gia,
+					'danhmuc' => $danhmuc,
+					//'status' => $status,
+					'moi' => $moi,
+					'trangchu' => $trangchu,
+					'hinhanh' => $hinhanh,
+					'themeta' => $themeta,
+					'keymeta' => $keymeta,
+					'motameta' => $motameta,
+					'ngaythem' => date('Y-m-d H:i:s'),
+				);
+				$idsanpham = $this->msanpham->capnhat($dat, $id);
+				if($idsanpham)
+				{
+					$_SESSION['success'] = 'Thêm sản phẩm thành công!';
+					redirect(base_url('admin/sanpham'));
+				}
+			}
+			else
+			{
+				$this->load->view('admin/layout', $data); 
 			}
 		}
 		else 
@@ -267,198 +299,6 @@ class Sanpham extends CI_Controller {
 			$dulieu .= '}';
 			echo $dulieu;
 		}
-	}
-	public function chinhsua($id)
-	{
-		$data['title'] = 'Chỉnh sửa phim';
-		
-		if(isset($_POST['luu']))
-		{
-			$tenphim_vn = $this->input->post('tenphim_vn');
-			$tenphim_en = $this->input->post('tenphim_en');
-			$daodien = $this->input->post('daodien');
-			$kichban = explode(',',$this->input->post('kichban')); 
-			$dienvien = explode(',',$this->input->post('dienvien'));
-			$nam_sanxuat = $this->input->post('nam_sanxuat');
-			$theloai = explode(',',$this->input->post('theloai'));
-			$thoiluong = $this->input->post('thoiluong');
-			$diem_imdb = $this->input->post('diem_imdb');
-			$link_phude = trim($this->input->post('link_phude'));
-			if(strpos($link_phude, '=') !== false)
-			{
-				$link_phude = strstr($link_phude, '=');
-				$link_phude = ltrim($link_phude, '=');
-				$link_phude = 'https://drive.google.com/file/d/'.$link_phude.'/preview';
-			}
-			$link_thuyetminh = trim($this->input->post('link_thuyetminh'));
-			if(strpos($link_thuyetminh, '=') !== false)
-			{
-				$link_thuyetminh = strstr($link_thuyetminh, '=');
-				$link_thuyetminh = ltrim($link_thuyetminh, '=');
-				$link_thuyetminh = 'https://drive.google.com/file/d/'.$link_thuyetminh.'/preview';
-			}
-			$gioithieu = $this->input->post('gioithieu');
-			$trailer = trim($this->input->post('trailer'));
-			if(strpos($trailer, '=') !== false)
-			{
-				$trailer = strstr($trailer, '=');
-				$trailer = ltrim($trailer, '=');
-				$trailer = 'https://www.youtube.com/embed/'.$trailer;
-			}
-			$phimbo = $this->input->post('phimbo');
-			
-			if(empty($phimbo))
-			{
-				$phimbo = 0;
-			}
-			
-			$tenhinh = $this->chuanhoa->gach_noi($tenphim_en);
-			$config['upload_path'] = 'img/poster/';
-            $config['allowed_types'] = 'gif|jpg|png';
-			$config['file_name'] = $tenhinh;
-            $this->load->library("upload", $config);
-
-            if($this->upload->do_upload('poster'))
-			{
-				$img = $this->upload->data();
-				$poster = $img['file_name'];
-				$conf['image_library'] = 'gd2';
-				$conf['source_image'] = $config['upload_path'].$img['file_name'];
-				$conf['create_thumb'] = false;
-				$conf['maintain_ratio'] = false;
-				$conf['width']         = 500;
-				$conf['height']       = 750;
-				$this->load->library('image_lib', $conf);
-				$this->image_lib->resize();
-			}
-			else
-			{
-				$poster = $this->input->post('poster_cu');
-			}
-			$dat_daodien = array(
-				'ten_daodien' => trim($daodien),
-				'ten_daodien_kd' => $this->chuanhoa->convert_vi_to_en(trim($daodien)),
-			);
-			$id_daodien = $this->mdaodien->themdaodien($dat_daodien);
-			$dat_kichban = array();
-			if(!empty($kichban))
-			{
-				foreach($kichban as $key => $item)
-				{
-					$tam['kichban'] = trim($item);
-					$tam['kichban_kd'] = $this->chuanhoa->convert_vi_to_en(trim($item));
-					$tam['kichban_kd'] = $this->chuanhoa->convert_vi_to_en(trim($item));
-					$id_kichban = $this->mkichban->themkichban($tam);
-					$dat_kichban[] = $id_kichban;
-				}
-			}
-			$dat_dienvien = array();
-			if(!empty($dienvien))
-			{
-				foreach($dienvien as $item)
-				{
-					$tam1['ten_dienvien'] = trim($item);
-					$tam1['ten_dienvien_kd'] = $this->chuanhoa->convert_vi_to_en(trim($item));
-					$id_dienvien = $this->mdienvien->themdienvien($tam1);
-					$dat_dienvien[] = $id_dienvien;
-				}
-			}
-			$dat_theloai = array();
-			if(!empty($theloai))
-			{
-				foreach($theloai as $item)
-				{
-					$tam2['tentheloai'] = trim($item);
-					$tam2['tentheloai_kd'] = $this->chuanhoa->convert_vi_to_en(trim($item));
-					$id_theloai = $this->mtheloai->themtheloai($tam2);
-					$dat_theloai[] = $id_theloai;
-				}
-			}
-			$dat = array(
-				'tenphim_vn' => $tenphim_vn,
-				'tenphim_en' => $tenphim_en,
-				'daodien' => $id_daodien,
-				'kichban' => json_encode($dat_kichban),
-				'dienvien' => json_encode($dat_dienvien),
-				'theloai' => json_encode($dat_theloai),
-				'nam_sanxuat' => $nam_sanxuat,
-				'thoiluong' => $thoiluong,
-				'diem_imdb' => $diem_imdb,
-				'link_phude' => $link_phude,
-				'link_thuyetminh' => $link_thuyetminh,
-				'poster' => $poster,
-				'gioithieu' => $gioithieu,
-				'phimbo' => $phimbo,
-				'trailer' => $trailer,
-			);
-			$id_phim = $this->mphim->capnhat($dat, $id);
-			if($id_phim)
-			{
-				$_SESSION['success'] = 'Cập nhật thành công!';
-				redirect(base_url('admin/phim'));
-			}
-		}
-		
-		$chitietphim = $this->mphim->chitietphim($id);
-		if(!empty($chitietphim))
-		{
-			$kichban = json_decode($chitietphim['kichban']);
-			$thongtin_kichban = '';
-			if(!empty($kichban))
-			{
-				foreach($kichban as $tmp)
-				{
-					$thongtin_kichban .= $this->mkichban->thongtin_kichban($tmp)['kichban'].', ';
-				}
-			}
-			$thongtin_kichban = rtrim($thongtin_kichban, ', ');
-
-			$dienvien = json_decode($chitietphim['dienvien']);
-			$thongtin_dienvien = '';
-			if(!empty($dienvien))
-			{
-				foreach($dienvien as $tmp)
-				{
-					$thongtin_dienvien .= $this->mdienvien->thongtin_dienvien($tmp)['ten_dienvien'].', ';
-				}
-			}
-			$thongtin_dienvien = rtrim($thongtin_dienvien, ', ');
-
-			$theloai = json_decode($chitietphim['theloai']);
-			$thongtin_theloai = '';
-			if(!empty($theloai))
-			{
-				foreach($theloai as $tmp)
-				{
-					$thongtin_theloai .= $this->mtheloai->thongtin_theloai($tmp)['tentheloai'].', ';
-				}
-			}
-			$thongtin_theloai = rtrim($thongtin_theloai, ', ');
-
-			$data['chitietphim'] = array(
-				'id_phim' => $chitietphim['id_phim'],
-				'tenphim_vn' => $chitietphim['tenphim_vn'],
-				'tenphim_en' => $chitietphim['tenphim_en'],
-				'daodien' => $this->mdaodien->thongtin_daodien($chitietphim['daodien'])['ten_daodien'],
-				'kichban' => $thongtin_kichban,
-				'dienvien' => $thongtin_dienvien,
-				'theloai' => $thongtin_theloai,
-				'poster' => $chitietphim['poster'],
-				'active' => $chitietphim['active'],
-				'luotxem' => $chitietphim['luotxem'],
-				'phimbo' => $chitietphim['phimbo'],
-				'trailer' => $chitietphim['trailer'],
-				'ngay_them' => $chitietphim['ngay_them'],
-				'nam_sanxuat' => $chitietphim['nam_sanxuat'],
-				'thoiluong' => $chitietphim['thoiluong'],
-				'diem_imdb' => $chitietphim['diem_imdb'],
-				'link_phude' => $chitietphim['link_phude'],
-				'link_thuyetminh' => $chitietphim['link_thuyetminh'],
-				'gioithieu' => $chitietphim['gioithieu'],
-			);
-		}
-		$data['content'] = 'admin/phim/chinhsua';
-		$this->load->view('admin/layout', $data);
 	}
 	public function capnhat_phimbo_active()
 	{
