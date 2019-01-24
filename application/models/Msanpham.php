@@ -15,7 +15,9 @@ class Msanpham extends CI_Model{
 		$this->db->where('danhmuc.danhmuccha', $iddanhmuc);
 		$this->db->where('danhmuc.status', 1);
 		$this->db->where('sanpham.status', 1);
+		$this->db->where('sanpham.trangchu', 1);
 		$this->db->order_by('sanpham.danhmuc', 'asc');
+		$this->db->limit(8);
 		return $this->db->get()->result_array();
 	}
 	public function get_sanpham($idsanpham)
@@ -73,10 +75,14 @@ class Msanpham extends CI_Model{
 		$this->db->limit(4);
 		return $this->db->get()->result_array();
 	}
-	public function get_list_sanpham($iddanhmuc, $limit = NULL, $start = NULL, $order = NULL)
+	public function get_list_sanpham($iddanhmuc, $moi, $limit = NULL, $start = NULL, $order = NULL)
 	{
 		$this->db->from('sanpham');
 		$this->db->where('status = 1');
+		if($moi == 'monmoi')
+		{
+			$this->db->where('moi', 1);
+		}
 		$this->db->like('danhmuc', $iddanhmuc);
 		if($limit != NULL && $start == NULL)
 		{
@@ -92,17 +98,21 @@ class Msanpham extends CI_Model{
 		}
 		return $this->db->get()->result_array();
 	}
-	public function count_list_sanpham($iddanhmuc)
+	public function count_list_sanpham($iddanhmuc, $moi)
 	{
 		$this->db->from('sanpham');
 		$this->db->where('status = 1');
+		if($moi == 'monmoi')
+		{
+			$this->db->where('moi', 1);
+		}
 		$this->db->like('danhmuc', $iddanhmuc);
 		return $this->db->count_all_results();
 	}
 	public function timphim($tukhoa)
 	{
-		$this->db->from('phim');
-		$this->db->where("tenphim_vn like '".$tukhoa."%' or tenphim_en like '".$tukhoa."%'");
+		$this->db->from('sanpham');
+		$this->db->where("tensanpham like '".$tukhoa."%'");
 		$this->db->limit(10);
 		return $this->db->get()->result_array();
 	}

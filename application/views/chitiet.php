@@ -14,7 +14,7 @@
 			</div>
 		</div>
 		<div class="space30"></div>
-		<h4 class="text-sang text-title">Phim cùng thể loại</h4>
+		<h4 class="text-sang text-title">Món cùng danh mục</h4>
 		<div class="row">
 			<?php
 			if(!empty($sanphamcungloai))

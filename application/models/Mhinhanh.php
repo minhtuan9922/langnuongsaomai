@@ -7,10 +7,14 @@ class Mhinhanh extends CI_Model{
 	parent::__construct();
 	}
 
-	public function get_hinhanh()
+	public function get_hinhanh($limit = null)
 	{
 		$this->db->from('hinhanh');
 		$this->db->order_by('ngaythem', 'desc');
+		if($limit != null)
+		{
+			$this->db->limit(10);
+		}
 		return $this->db->get()->result_array();
 	}
 	public function themlienhe($data = array())

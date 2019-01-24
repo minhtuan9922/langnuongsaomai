@@ -20,7 +20,7 @@ class Thucdon extends CI_Controller {
 		$config['num_links'] = 5;
 		
 		//phân trang
-		$config['total_rows'] = $this->msanpham->count_list_sanpham($check_danhmuc['iddanhmuc']);
+		$config['total_rows'] = $this->msanpham->count_list_sanpham($check_danhmuc['iddanhmuc'], $this->uri->segment(2));
         $config['base_url'] = base_url().'thucdon/'.$check_danhmuc['tenkhongdau'];
 
 		$config['full_tag_open'] = '<ul class="pagination">';
@@ -57,7 +57,7 @@ class Thucdon extends CI_Controller {
 		$data['title'] = 'Trang chủ | '.$check_danhmuc['tendanhmuc'];
 		
 		$data['danhmuc'] = $check_danhmuc['tendanhmuc'];
-		$data['sanpham'] = $this->msanpham->get_list_sanpham($check_danhmuc['iddanhmuc'], $config['per_page'], $batdau, 'ngaythem desc');
+		$data['sanpham'] = $this->msanpham->get_list_sanpham($check_danhmuc['iddanhmuc'], $this->uri->segment(2), $config['per_page'], $batdau, 'ngaythem desc');
 		
 		$data['content'] = 'thucdon';
 		$this->load->view('index', $data);

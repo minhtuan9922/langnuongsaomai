@@ -12,6 +12,7 @@
 				<li class="nav-item dropdown <?php if( $this->uri->segment('1') == 'thucdon') echo 'active'; ?>">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">THỰC ĐƠN</a>
 					<div class="dropdown-menu bg-dark menu-drop" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item text-light" href="<?=base_url('thucdon/monmoi') ?>">MÓN MỚI</a>
 						<?php
 						$danhmuc = $this->mdanhmuc->get_danhmuc(0);
 					   	if(!empty($danhmuc))

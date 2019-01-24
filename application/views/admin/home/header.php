@@ -100,6 +100,23 @@
 		</div>
 		<div class="card">
 			<div class="card-header">
+				<a class="collapsed card-link text-light <?php if($this->uri->segment(2) == 'baiviet') echo 'active'; ?>" data-toggle="collapse" data-parent="#accordion" href="#baiviet_menu"><i class="far fa-newspaper"></i></i> Bài viết</a>
+			</div>
+			<div id="baiviet_menu" class="collapse <?php if($this->uri->segment(2) == 'baiviet') echo 'show'; ?>">
+				<div class="card-body">
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link text-light <?php if($this->uri->uri_string() == 'admin/baiviet') echo 'active'; ?>" href="<?=base_url('admin/baiviet') ?>"><i class="fas fa-list-ul"></i> Danh sách</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light <?php if($this->uri->uri_string() == 'admin/baiviet/thembaiviet') echo 'active'; ?>" href="<?=base_url('admin/baiviet/thembaiviet') ?>"><i class="fas fa-plus"></i> Thêm bài viết</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header">
 				<a class="collapsed card-link text-light <?php if($this->uri->segment(2) == 'user') echo 'active'; ?>" data-toggle="collapse" data-parent="#accordion" href="#user"><i class="fas fa-users"></i> Quản trị viên</a>
 			</div>
 			<div id="user" class="collapse <?php if($this->uri->segment(2) == 'user') echo 'show'; ?>">

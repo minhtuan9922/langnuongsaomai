@@ -52,15 +52,17 @@
 				{
 					if($k == 0 || $item['danhmuc'] != $sanpham[$k-1]['danhmuc'])
 					{
-						echo '<div class="tab-pane fade" id="thuc_don_'. $item['tenkhongdau'] .'">';
+						echo '<div class=" text-center tab-pane fade" id="thuc_don_'. $item['tenkhongdau'] .'">';
 						echo '<div class="row">';
 					}
 			?>
 				
 					<div class="col-md-3">
 						<div class="product">
-							<img src="<?=base_url('img/sanpham/'.$item['hinhanh_sp']) ?>" width="100%">
-							<h5 class="text-center"><?=$item['tensanpham'] ?></h5>
+							<a href="<?=base_url('chitiet/'.$item['idsanpham'].'/'.$this->chuanhoa->convert_vi_to_en($item['tensanpham'])) ?>">
+								<img src="<?=base_url('img/sanpham/'.$item['hinhanh_sp']) ?>" width="100%">
+								<h5 class="text-center"><?=$item['tensanpham'] ?></h5>
+							</a>
 						</div>
 					</div>
 				
@@ -68,6 +70,7 @@
 					if($k == count($sanpham) - 1 || $item['danhmuc'] != $sanpham[$k+1]['danhmuc'])
 					{
 						echo '</div>';
+						echo '<a href="'.base_url('thucdon/'.$item['tenkhongdau']).'" class="btn btn-light">Xem thêm</a>';
 						echo '</div>';
 					}
 				}
@@ -264,4 +267,11 @@
 			}
 		}
 	});
+	var $image = $('#slide-hinhanh');
+
+	// Get the Viewer.js instance after initialized
+	var viewer = $image.data('viewer');
+
+	// View a list of images
+	$('#slide-hinhanh').viewer();
 </script>
