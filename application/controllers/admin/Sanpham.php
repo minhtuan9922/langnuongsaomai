@@ -31,7 +31,7 @@ class Sanpham extends CI_Controller {
 		
 		//phân trang
 		$config['total_rows'] = $this->msanpham->countAll();
-        $config['base_url'] = base_url()."admin/phim";
+        $config['base_url'] = base_url()."admin/sanpham";
 
 		$config['full_tag_open'] = '<ul class="pagination">';
 		$config['full_tag_close'] = '</ul>';
@@ -300,29 +300,14 @@ class Sanpham extends CI_Controller {
 			echo $dulieu;
 		}
 	}
-	public function capnhat_phimbo_active()
+	public function capnhat_moi()
 	{
-		if(isset($_POST['active']))
+		if(isset($_POST['moi']))
 		{
-			$id_phim = $this->input->post('id_phim');
-			$active = $this->input->post('active');
+			$idsanpham = $this->input->post('idsanpham');
+			$moi = $this->input->post('moi');
 			
-			$kq = $this->mphim->capnhat(array('active'=>$active), $id_phim);
-			if($kq == true)
-			{
-				echo 'Xóa thành công.';
-			}
-			else
-			{
-				echo 'Lỗi';
-			}
-		}
-		if(isset($_POST['phimbo']))
-		{
-			$id_phim = $this->input->post('id_phim');
-			$phimbo = $this->input->post('phimbo');
-			
-			$kq = $this->mphim->capnhat(array('phimbo'=>$phimbo), $id_phim);
+			$kq = $this->msanpham->capnhat(array('moi'=>$moi), $idsanpham);
 			if($kq == true)
 			{
 				echo 'Cập nhật thành công.';
@@ -332,5 +317,42 @@ class Sanpham extends CI_Controller {
 				echo 'Lỗi';
 			}
 		}
+	}
+	public function capnhat_trangchu()
+	{
+		if(isset($_POST['trangchu']))
+		{
+			$idsanpham = $this->input->post('idsanpham');
+			$trangchu = $this->input->post('trangchu');
+			
+			$kq = $this->msanpham->capnhat(array('trangchu'=>$trangchu), $idsanpham);
+			if($kq == true)
+			{
+				echo 'Cập nhật thành công.';
+			}
+			else
+			{
+				echo 'Lỗi';
+			}
+		}
+	}
+	public function xoasanpham()
+	{
+		$json = array();
+		if(isset($_POST['idsanpham']))
+		{
+			$idsanpham = $this->input->post('idsanpham');
+			
+			$kq = $this->msanpham->xoasanpham($idsanpham);
+			if($kq == true)
+			{
+				$json['success'] = 'Xóa sản phẩm thành công.';
+			}
+			else
+			{
+				$json['error'] = 'Lỗi';
+			}
+		}
+		echo json_encode($json);
 	}
 }

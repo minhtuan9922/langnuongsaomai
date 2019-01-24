@@ -2,7 +2,7 @@
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="<?=base_url('admin') ?>">Trang chủ</a></li>
-			<li class="breadcrumb-item active" aria-current="page">Sản phẩm</li>
+			<li class="breadcrumb-item active" aria-current="page">Hình ảnh</li>
 		</ol>
 	</nav>
 	<div class="main">
@@ -18,42 +18,32 @@
 		}
 		?>
 		<div class="card">
-			<div class="card-header bg-info text-white">Danh sách sản phẩm</div>
+			<div class="card-header bg-info text-white">Danh sách hình ảnh</div>
 			<div class="card-body p-0">
 				<div class="table-responsive-md">
 					<table class="table table-hover table-bordered m-0">
 						<thead>
 							<tr>
+								<th>ID hình ảnh</th>
 								<th>Hình ảnh</th>
-								<th>Tên sản phẩm</th>
-								<th>Thực đơn</th>
 								<th>Ngày thêm</th>
-								<th>Món mới</th>
-								<th>Trang chủ</th>
-								<th>Giá</th>
-								<th>Lượt xem</th>
 								<th>Hành động</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php
-							if(isset($sanpham)) 
+							if(isset($hinhanh)) 
 							{
-								foreach($sanpham as $tmp)
+								foreach($hinhanh as $tmp)
 								{
 							?>
 							<tr>
-								<td><img src="<?=base_url('img/sanpham/'.$tmp['hinhanh']) ?>" width="64px"></td>
-								<td><?=$tmp['tensanpham'] ?></td>
-								<td><?=$tmp['tendanhmuc'] ?></td>
+								<td><?=$tmp['idhinhanh'] ?></td>
+								<td><img src="<?=base_url('img/hinhanh/'.$tmp['hinhanh']) ?>" width="200px"></td>
 								<td><?=$tmp['ngaythem'] ?></td>
-								<td><input type="checkbox" onClick="check_moi(<?=$tmp['idsanpham'] ?>)" id="moi_<?=$tmp['idsanpham'] ?>" <?=$tmp['moi'] == 1 ? 'checked' : '' ?>></td>
-								<td><input type="checkbox" onClick="check_trangchu(<?=$tmp['idsanpham'] ?>)" id="trangchu_<?=$tmp['idsanpham'] ?>" <?=$tmp['trangchu'] == 1 ? 'checked' : '' ?> ></td>
-								<td><?=number_format($tmp['gia']) ?> VNĐ</td>
-								<td><?=$tmp['luotxem'] ?></td>
 								<td>
-									<a href="<?=base_url('admin/sanpham/chinhsua/'.$tmp['idsanpham']) ?>" class="btn btn-info"><i class="fas fa-edit"></i></a>
-									<button class="btn btn-danger" onClick="xoasanpham(<?=$tmp['idsanpham'] ?>)"><i class="fas fa-trash-alt"></i></button>
+									<a href="<?=base_url('admin/hinhanh/chinhsua/'.$tmp['idhinhanh']) ?>" class="btn btn-info"><i class="fas fa-edit"></i></a>
+									<button class="btn btn-danger" onClick="xoahinhanh(<?=$tmp['idhinhanh'] ?>)"><i class="fas fa-trash-alt"></i></button>
 								</td>
 							</tr>
 							<?php
@@ -104,15 +94,15 @@
 			alertify.success(msg);
 		});
 	}
-	function xoasanpham(id)
+	function xoahinhanh(id)
 	{
-		var r = confirm('Bạn có thật sự muốn xóa sản phẩm này?');
+		var r = confirm('Bạn có thật sự muốn xóa hinhanh này?');
 		if(r == true) {
 			$.ajax({
 				dataType: "JSON",
 				method: "POST",
-				url: "<?=base_url('admin/sanpham/xoasanpham'); ?>",
-				data:{idsanpham: id},
+				url: "<?=base_url('admin/hinhanh/xoahinhanh'); ?>",
+				data:{idhinhanh: id},
 			})
 			.done(function( msg ) {
 				if(msg.success) {

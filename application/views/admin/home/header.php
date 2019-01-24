@@ -83,6 +83,23 @@
 		</div>
 		<div class="card">
 			<div class="card-header">
+				<a class="collapsed card-link text-light <?php if($this->uri->segment(2) == 'hinhanh') echo 'active'; ?>" data-toggle="collapse" data-parent="#accordion" href="#hinhanh_menu"><i class="far fa-image"></i> Hình ảnh</a>
+			</div>
+			<div id="hinhanh_menu" class="collapse <?php if($this->uri->segment(2) == 'hinhanh') echo 'show'; ?>">
+				<div class="card-body">
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link text-light <?php if($this->uri->uri_string() == 'admin/hinhanh') echo 'active'; ?>" href="<?=base_url('admin/hinhanh') ?>"><i class="fas fa-list-ul"></i> Danh sách</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light <?php if($this->uri->uri_string() == 'admin/hinhanh/themhinhanh') echo 'active'; ?>" href="<?=base_url('admin/hinhanh/themhinhanh') ?>"><i class="fas fa-plus"></i> Thêm hình ảnh</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header">
 				<a class="collapsed card-link text-light <?php if($this->uri->segment(2) == 'user') echo 'active'; ?>" data-toggle="collapse" data-parent="#accordion" href="#user"><i class="fas fa-users"></i> Quản trị viên</a>
 			</div>
 			<div id="user" class="collapse <?php if($this->uri->segment(2) == 'user') echo 'show'; ?>">

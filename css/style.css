@@ -305,4 +305,7 @@ footer {
 	background: url("../img/bgfooter.png") no-repeat;
 	background-size: 100% 100%;
 }
-
+#slide-hinhanh .item img {
+	height: 300px;
+	width: auto;
+}

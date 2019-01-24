@@ -106,4 +106,9 @@ class Msanpham extends CI_Model{
 		$this->db->limit(10);
 		return $this->db->get()->result_array();
 	}
+	public function xoasanpham($idsanpham)
+	{
+		$this->db->where('idsanpham', $idsanpham);
+		return $this->db->delete('sanpham');
+	}
 }

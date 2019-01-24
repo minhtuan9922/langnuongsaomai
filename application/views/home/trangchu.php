@@ -198,7 +198,7 @@
 			{
 		?>
 		<div class="item text-center">
-			<img class="mx-auto d-block" src="<?=base_url('img/hinhanh/'.$item['hinhanh']) ?>" alt="" width="100%">
+			<img src="<?=base_url('img/hinhanh/'.$item['hinhanh']) ?>" alt="">
 		</div>
 		<?php
 			}
@@ -250,6 +250,8 @@
 		autoplay:true,
 		autoplayTimeout:2000,
 		autoplayHoverPause:true,
+		autoWidth:true,
+		autoHeight: false,
 		responsive:{
 			0:{
 				items:4
