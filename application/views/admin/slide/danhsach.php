@@ -25,9 +25,7 @@
 						<thead>
 							<tr>
 								<th>ID slide</th>
-								<th>Phim</th>
-								<th>Poster</th>
-								<th>Backgound</th>
+								<th>Hình ảnh</th>
 								<th>Thứ tự</th>
 								<th>Hành động</th>
 							</tr>
@@ -41,9 +39,7 @@
 							?>
 							<tr>
 								<td><?=$tmp['id_slide'] ?></td>
-								<td><?=$tmp['tenphim_vn'] ?></td>
-								<td><img src="<?=base_url('img/poster/'.$tmp['poster']) ?>" width="50px"></td>
-								<td><img src="<?=base_url('img/slide/'.$tmp['background']) ?>" width="100px"></td>
+								<td><img src="<?=base_url('img/slide/'.$tmp['background']) ?>" width="200px"></td>
 								<td><?=$tmp['vitri'] ?></td>
 								<td>
 									<a href="<?=base_url('admin/slide/chinhsua/'.$tmp['id_slide']) ?>" class="btn btn-info"><i class="fas fa-edit"></i></a>
@@ -64,7 +60,7 @@
 <script>
 	function xoa_slide(id)
 	{
-		var r = confirm('Bạn có thật sự muốn xóa thể loại này?');
+		var r = confirm('Bạn có thật sự muốn xóa slide này?');
 		if(r == true) {
 			$.ajax({
 				method: "POST",

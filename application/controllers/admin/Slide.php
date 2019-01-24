@@ -36,17 +36,12 @@ class Slide extends CI_Controller {
 		
 		if(isset($_POST['themslide']))
 		{
-			$this->form_validation->set_rules('chonphim', 'chọn phim', 'required', array('required' => 'Vui lòng %s'));
-			$this->form_validation->set_rules('poster', 'chọn phim', 'required', array('required' => 'Vui lòng %s'));
 			$this->form_validation->set_rules('thutu', 'thứ tự', 'required', array('required' => 'Vui lòng nhập %s'));
 
 			if($this->form_validation->run() != FALSE)
 			{
-				$phim = $this->mphim->chitietphim($this->input->post('chonphim'));
-				$tenhinh = $this->chuanhoa->gach_noi($phim['tenphim_en']);
 				$config['upload_path'] = 'img/slide/';
 				$config['allowed_types'] = 'gif|jpg|png';
-				$config['file_name'] = $tenhinh;
 				$this->load->library("upload", $config);
 				if($this->upload->do_upload('background'))
 				{
@@ -56,18 +51,24 @@ class Slide extends CI_Controller {
 					$conf['source_image'] = $config['upload_path'].$img['file_name'];
 					$conf['create_thumb'] = false;
 					$conf['maintain_ratio'] = false;
-					$conf['width']         = 1920;
-					$conf['height']       = 1080;
+					if($img['image_width'] > ($img['image_height'] * 3.2))
+					{
+						$conf['width'] = $img['image_height'] * 3.2;
+						$conf['height'] = $img['image_height'];
+					}
+					else
+					{
+						$conf['width'] = $img['image_width'];
+						$conf['height'] = $img['image_width'] / 3.2;
+					}
 					$this->load->library('image_lib', $conf);
-					$this->image_lib->resize();
+					$this->image_lib->crop();
 				}
 				else
 				{
 					$background = '';
 				}
 				$dat = array(
-					'id_phim' => $this->input->post('chonphim'),
-					'poster' => $this->input->post('poster'),
 					'background' => $background,
 					'status' => 1,
 					'date' => date('Y-m-d H:i:s'),
@@ -94,17 +95,12 @@ class Slide extends CI_Controller {
 		
 		if(isset($_POST['chinhsua']))
 		{
-			$this->form_validation->set_rules('chonphim', 'chọn phim', 'required', array('required' => 'Vui lòng %s'));
-			$this->form_validation->set_rules('poster', 'chọn phim', 'required', array('required' => 'Vui lòng %s'));
 			$this->form_validation->set_rules('thutu', 'thứ tự', 'required', array('required' => 'Vui lòng nhập %s'));
 
 			if($this->form_validation->run() != FALSE)
 			{
-				$phim = $this->mphim->chitietphim($this->input->post('chonphim'));
-				$tenhinh = $this->chuanhoa->gach_noi($phim['tenphim_en']);
 				$config['upload_path'] = 'img/slide/';
 				$config['allowed_types'] = 'gif|jpg|png';
-				$config['file_name'] = $tenhinh;
 				$this->load->library("upload", $config);
 				if($this->upload->do_upload('background'))
 				{
@@ -114,18 +110,24 @@ class Slide extends CI_Controller {
 					$conf['source_image'] = $config['upload_path'].$img['file_name'];
 					$conf['create_thumb'] = false;
 					$conf['maintain_ratio'] = false;
-					$conf['width']         = 1920;
-					$conf['height']       = 1080;
+					if($img['image_width'] > ($img['image_height'] * 3.2))
+					{
+						$conf['width'] = $img['image_height'] * 3.2;
+						$conf['height'] = $img['image_height'];
+					}
+					else
+					{
+						$conf['width'] = $img['image_width'];
+						$conf['height'] = $img['image_width'] / 3.2;
+					}
 					$this->load->library('image_lib', $conf);
-					$this->image_lib->resize();
+					$this->image_lib->crop();
 				}
 				else
 				{
 					$background = $data['slide']['background'];
 				}
 				$dat = array(
-					'id_phim' => $this->input->post('chonphim'),
-					'poster' => $this->input->post('poster'),
 					'background' => $background,
 					'status' => 1,
 					'vitri' => $this->input->post('thutu'),

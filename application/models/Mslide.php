@@ -10,8 +10,7 @@ class Mslide extends CI_Model{
 	public function danhsach()
 	{
 		$this->db->select('*');
-		$this->db->from('slide, phim');
-		$this->db->where('slide.id_phim = phim.id_phim');
+		$this->db->from('slide');
 		$this->db->order_by('vitri', 'asc');
 		return $this->db->get()->result_array();
 	}
