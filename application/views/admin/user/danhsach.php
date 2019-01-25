@@ -60,21 +60,21 @@
 	</div>
 </div>
 <script>
-	function xoa_slide(id)
-	{
-		var r = confirm('Bạn có thật sự muốn xóa thể loại này?');
-		if(r == true) {
-			$.ajax({
-				method: "POST",
-				url: "<?=base_url('admin/slide/xoa_slide'); ?>",
-				data:{id_slide: id},
-			})
-			.done(function( msg ) {
-				alertify.success(msg);
-				setTimeout(function() {
-					location.reload();
-				}, 1000);
-			});
-		}
-	}
+//	function xoa_slide(id)
+//	{
+//		var r = confirm('Bạn có thật sự muốn xóa thể loại này?');
+//		if(r == true) {
+//			$.ajax({
+//				method: "POST",
+//				url: "<?=base_url('admin/slide/xoa_slide'); ?>",
+//				data:{id_slide: id},
+//			})
+//			.done(function( msg ) {
+//				alertify.success(msg);
+//				setTimeout(function() {
+//					location.reload();
+//				}, 1000);
+//			});
+//		}
+//	}
 </script>

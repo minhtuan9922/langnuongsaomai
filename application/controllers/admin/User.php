@@ -123,21 +123,21 @@ class User extends CI_Controller {
 		}
 		$this->load->view('admin/layout', $data);
 	}
-	public function xoa_slide()
-	{
-		if(isset($_POST['id_slide']))
-		{
-			$id_slide = $this->input->post('id_slide');
-			
-			$kq = $this->mslide->xoa_slide($id_slide);
-			if($kq == true)
-			{
-				echo 'Xóa thành công.';
-			}
-			else
-			{
-				echo 'Lỗi';
-			}
-		}
-	}
+//	public function xoa_slide()
+//	{
+//		if(isset($_POST['id_slide']))
+//		{
+//			$id_slide = $this->input->post('id_slide');
+//			
+//			$kq = $this->mslide->xoa_slide($id_slide);
+//			if($kq == true)
+//			{
+//				echo 'Xóa thành công.';
+//			}
+//			else
+//			{
+//				echo 'Lỗi';
+//			}
+//		}
+//	}
 }
