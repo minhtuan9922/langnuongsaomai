@@ -112,16 +112,18 @@ class Slide extends CI_Controller {
 					$conf['source_image'] = $config['upload_path'].$img['file_name'];
 					$conf['create_thumb'] = false;
 					$conf['maintain_ratio'] = false;
-					if($img['image_width'] > ($img['image_height'] * 3.2))
-					{
-						$conf['width'] = $img['image_height'] * 3.2;
-						$conf['height'] = $img['image_height'];
-					}
-					else
-					{
-						$conf['width'] = $img['image_width'];
-						$conf['height'] = $img['image_width'] / 3.2;
-					}
+					$conf['width'] = 1920;
+					$conf['height'] = 600;
+//					if($img['image_width'] > ($img['image_height'] * 3.2))
+//					{
+//						$conf['width'] = $img['image_height'] * 3.2;
+//						$conf['height'] = $img['image_height'];
+//					}
+//					else
+//					{
+//						$conf['width'] = $img['image_width'];
+//						$conf['height'] = $img['image_width'] / 3.2;
+//					}
 					$this->load->library('image_lib', $conf);
 					$this->image_lib->crop();
 				}

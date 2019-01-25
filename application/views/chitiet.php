@@ -2,11 +2,11 @@
 	<div class="space50"></div>
 	<h2 class="text-danger border-bottom border-danger">Chi tiết sản phẩm</h2>
 		<div class="row">
-			<div class="col-md-3">
+			<div class="col-md-6">
 				<img class="img-thumbnail image-view" src="<?=base_url('img/sanpham/'.$sanpham['hinhanh']) ?>" alt="" width="100%">
 				<div class="space20"></div>
 			</div>
-			<div class="col-md-9">
+			<div class="col-md-6">
 				<h4><strong><?=$sanpham['tensanpham'] ?></strong></h4>
 				<p class="text-danger">Giá: <?=number_format($sanpham['gia'], 0) ?> VNĐ</p>
 				<p>Lượt xem: <?=$sanpham['luotxem'] ?></p>

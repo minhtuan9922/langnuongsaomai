@@ -121,7 +121,7 @@ class Sanpham extends CI_Controller {
 						$conf['height'] = $img['image_width'] * 3 / 4;
 					}
 					$this->load->library('image_lib', $conf);
-					$this->image_lib->crop();
+					$this->image_lib->resize();
 				}
 				else
 				{
@@ -209,7 +209,7 @@ class Sanpham extends CI_Controller {
 						$conf['height'] = $img['image_width'] * 3 / 4;
 					}
 					$this->load->library('image_lib', $conf);
-					$this->image_lib->crop();
+					$this->image_lib->resize();
 				}
 				else
 				{
