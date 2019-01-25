@@ -6,7 +6,6 @@
 			echo $gioithieu['noidung'];
 		}
 		?>
-	</div>
 </div>
 <script>
 var $image = $('.image-view');
