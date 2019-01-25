@@ -4,7 +4,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<h1 class="text-danger">GIỚI THIỆU</h1>
-				<h5 class="text-justify">Với sức chứa lớn cùng không gian lịch sự, đội ngũ nhân viên chuyên nghiệp, Hello quán hiện đang là điểm đến lý tưởng cho gia đình Việt cũng như anh em bạn bè có thể thư giãn, ăn uống, giao lưu vào cuối ngày làm việc căng thẳng. Các món ăn tại quán luôn đa dạng và chế biến vô cùng tươi ngon nhằm mang lại một bữa ăn dinh dưỡng và ngon miệng đến khách hàng.</h5>
+				<h5 class="text-justify"><?=!empty($gioithieu) ? $gioithieu['noidungxemtruoc'] : '' ?></h5>
 				<a href="<?=base_url('gioithieu') ?>" class="btn btn-light">Xem thêm</a>
 			</div>
 			<div class="col-md-6">

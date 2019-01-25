@@ -2,7 +2,7 @@
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="<?=base_url('admin') ?>">Trang chủ</a></li>
-			<li class="breadcrumb-item"><a href="<?=base_url('admin/phim') ?>">Sản phẩm</a></li>
+			<li class="breadcrumb-item"><a href="<?=base_url('admin/baiviet') ?>">Bài viết</a></li>
 			<li class="breadcrumb-item active" aria-current="page"><?=$title ?></li>
 		</ol>
 	</nav>
@@ -10,88 +10,40 @@
 		<div class="card">
 			<div class="card-header bg-info text-white"><?=$title ?></div>
 			<div class="card-body">
-				<form action="<?=base_url('admin/sanpham/chinhsua/'.$sanpham['idsanpham']) ?>" method="post" enctype="multipart/form-data">
+				<form action="<?=base_url('admin/baiviet/chinhsua/'.$baiviet['idbaiviet']) ?>" method="post" enctype="multipart/form-data">
 					<div class="form-group">
-						<label for="tensanpham">Tên sản phẩm</label>
-						<input type="text" class="form-control <?php if(form_error('tensanpham')) echo 'is-invalid'; ?>" id="tensanpham" name="tensanpham" required placeholder="Tên sản phẩm" value="<?php if(set_value('tensanpham')) echo set_value('tensanpham'); else echo $sanpham['tensanpham'] ?>">
-						<div class="invalid-feedback"><?=form_error('tensanpham') ?></div>
-					</div>
-					<div class="form-group">
-						<label for="mota">Mô tả</label>
-						<textarea type="text" class="form-control" id="mota" name="mota" rows="6" placeholder="Mô tả"><?php if(set_value('mota')) echo set_value('mota'); else echo $sanpham['mota'] ?></textarea>
+						<label for="tenbaiviet">Tên bài viết</label>
+						<input type="text" class="form-control <?php if(form_error('tenbaiviet')) echo 'is-invalid'; ?>" id="tenbaiviet" name="tenbaiviet" required placeholder="Tên bài viết" value="<?php if(set_value('tenbaiviet')) echo set_value('tenbaiviet'); else echo $baiviet['tenbaiviet'] ?>">
+						<div class="invalid-feedback"><?=form_error('tenbaiviet') ?></div>
 					</div>
 					<div class="form-group">
-						<label for="gia">Giá</label>
-						<input type="text" class="form-control <?php if(form_error('gia')) echo 'is-invalid' ?>" id="gia" name="gia" placeholder="Giá" required value="<?php if(set_value('gia')) echo set_value('gia'); else echo (int)$sanpham['gia'] ?>">
-						<div class="invalid-feedback"><?=form_error('gia') ?></div>
-					</div>
-					<div class="grom-group">
-						<label for="danhmuc">Danh mục</label>
-						<select name="danhmuc" id="danhmuc" class="form-control <?php if(form_error('danhmuc')) echo 'is-invalid' ?>">
-							<option value="" selected disabled>Chọn danh mục</option>
-							<?php
-							if(isset($list_danhmuc))
-							{
-								foreach($list_danhmuc as $item)
-								{
-									if(set_value('danhmuc') == $item['iddanhmuc'] || $sanpham['danhmuc'] == $item['iddanhmuc'])
-									{
-							?>
-							<option value="<?=$item['iddanhmuc'] ?>" selected><?=$item['tendanhmuc'] ?></option>
-							<?php
-									}
-									else
-									{
-							?>
-							<option value="<?=$item['iddanhmuc'] ?>"><?=$item['tendanhmuc'] ?></option>
-							<?php
-									}
-								}
-							}
-							?>
-						</select>
-						<div class="invalid-feedback"><?=form_error('danhmuc') ?></div>
+						<label for="mabaiviet">Mã bài viết</label>
+						<input type="text" class="form-control <?php if(form_error('mabaiviet')) echo 'is-invalid'; ?>" id="mabaiviet" name="mabaiviet" required placeholder="Mã bài viết" value="<?php if(set_value('mabaiviet')) echo set_value('mabaiviet'); else echo $baiviet['mabaiviet'] ?>">
+						<div class="invalid-feedback"><?=form_error('mabaiviet') ?></div>
 					</div>
 					<div class="form-group">
-						<label for="hinhanh">Hình ảnh</label>
-						<input type="file" class="form-control" id="hinhanh" name="hinhanh" placeholder="Hình ảnh">
-						<div class="space10"></div>
-						<img src="<?=base_url('img/sanpham/'.$sanpham['hinhanh']) ?>" id="images" width="200px" class="mx-auto d-block img-thumbnail">
-						<input type="text" value="<?=$sanpham['hinhanh'] ?>" name="hinhanhcu" hidden="">
-						
+						<label for="noidungxemtruoc">Mô tả ngắn</label>
+						<textarea type="text" class="form-control <?php if(form_error('noidungxemtruoc')) echo 'is-invalid'; ?>" id="noidungxemtruoc" name="noidungxemtruoc" rows="6" placeholder="Mô tả"><?php if(set_value('noidungxemtruoc')) echo set_value('noidungxemtruoc'); else echo $baiviet['noidungxemtruoc'] ?></textarea>
+						<div class="invalid-feedback"><?=form_error('noidungxemtruoc') ?></div>
 					</div>
-<!--
-					<div class="grom-group">
-						<label for="status">Danh mục</label>
-						<select name="status" id="status" class="form-control">
-							<option value="1" <?=set_value('status') == 1 ? 'selected' : '' ?>>Hoạt động</option>
-							<option value="0" <?=set_value('status') === 0 ? 'selected' : '' ?>>Vô hiệu hóa</option>
-						</select>
-					</div>
--->
-					<div class="form-check">
-						<label class="form-check-label">
-					  		<input class="form-check-input" type="checkbox" name="moi" value="1" <?php if(set_value('moi') == 1 || $sanpham['moi'] == 1) echo 'checked'; ?> > Món mới
-						</label>
-					</div>
-					<div class="form-check">
-						<label class="form-check-label">
-					  		<input class="form-check-input" type="checkbox" name="trangchu" value="1" <?php if(set_value('trangchu') == 1 || $sanpham['trangchu'] == 1) echo 'checked'; ?>> Hiển thị trên trang chủ
-						</label>
+					<div class="form-group">
+						<label for="noidung">Nội dung</label>
+						<textarea type="text" class="form-control <?php if(form_error('noidung')) echo 'is-invalid'; ?>" id="noidung" name="noidung" rows="6" placeholder="Nội dung"><?php if(set_value('noidung')) echo set_value('noidung'); else echo $baiviet['noidung'] ?></textarea>
+						<div class="invalid-feedback"><?=form_error('noidung') ?></div>
 					</div>
 					<div class="form-group">
 						<label for="themeta">Thẻ meta</label>
-						<input type="text" class="form-control" id="themeta" name="themeta" placeholder="Thẻ meta" value="<?php if(set_value('themeta')) echo set_value('themeta'); else echo $sanpham['themeta'] ?>">
+						<input type="text" class="form-control" id="themeta" name="themeta" placeholder="Thẻ meta" value="<?php if(set_value('themeta')) echo set_value('themeta'); else echo $baiviet['themeta'] ?>">
 					</div>
 					<div class="form-group">
 						<label for="keymeta">Từ khóa thẻ meta</label>
-						<input type="text" class="form-control" id="keymeta" name="keymeta" placeholder="Từ khóa thẻ meta" value="<?php if(set_value('keymeta')) echo set_value('keymeta'); else echo $sanpham['keymeta'] ?>">
+						<input type="text" class="form-control" id="keymeta" name="keymeta" placeholder="Từ khóa thẻ meta" value="<?php if(set_value('keymeta')) echo set_value('keymeta'); else echo $baiviet['keymeta'] ?>">
 					</div>
 					<div class="form-group">
 						<label for="motameta">Mô tả thẻ meta</label>
-						<input type="text" class="form-control" id="motameta" name="motameta" placeholder="Mô tả thẻ meta" value="<?php if(set_value('motameta')) echo set_value('motameta'); else echo $sanpham['motameta'] ?>">
+						<input type="text" class="form-control" id="motameta" name="motameta" placeholder="Mô tả thẻ meta" value="<?php if(set_value('motameta')) echo set_value('motameta'); else echo $baiviet['motameta'] ?>">
 					</div>
-					<button type="submit" name="chinhsua" class="btn btn-primary">Chỉnh sửa</button>
+					<button type="submit" name="chinhsua" class="btn btn-primary">Chỉnh sửa bài viết</button>
 				</form>
 			</div>
 		</div>
@@ -160,7 +112,7 @@
         }
     })
 	$(function() { 
-		$('textarea').froalaEditor({
+		$('#noidung').froalaEditor({
 			iconsTemplate: 'font_awesome_5',
 			heightMin: 300,
 			language: 'vi',

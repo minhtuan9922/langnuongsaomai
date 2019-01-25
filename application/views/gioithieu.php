@@ -6,6 +6,7 @@
 			echo $gioithieu['noidung'];
 		}
 		?>
+	<div class="space50"></div>
 </div>
 <script>
 var $image = $('.image-view');

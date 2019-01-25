@@ -70,179 +70,90 @@ class Baiviet extends CI_Controller {
 	}
 	public function thembaiviet()
 	{
-		$data['title'] = 'Thêm sản phẩm mới';
-		$data['content'] = 'admin/sanpham/them';
-		$data['list_danhmuc'] = $this->mdanhmuc->list_danhmuc();
+		$data['title'] = 'Thêm bài viết mới';
+		$data['content'] = 'admin/baiviet/them';
 		if(isset($_POST['thembaiviet']))
 		{
-			$this->form_validation->set_rules('tensanpham', 'tên sản phẩm', 'required', array('required' => 'Vui lòng nhập %s'));
-			$this->form_validation->set_rules('gia', 'giá', 'required|integer', array('required' => 'Vui lòng nhập %s', 'integer' => 'Giá phải là số'));
-			$this->form_validation->set_rules('danhmuc', 'danh mục', 'required', array('required' => 'Vui lòng chọn %s'));
+			$this->form_validation->set_rules('tenbaiviet', 'tên bài viết', 'required', array('required' => 'Vui lòng nhập %s'));
+			$this->form_validation->set_rules('mabaiviet', 'mã bài viet', 'required', array('required' => 'Vui lòng nhập %s'));
+			$this->form_validation->set_rules('noidungxemtruoc', 'nội dung xem trước', 'required', array('required' => 'Vui lòng nhập %s'));
+			$this->form_validation->set_rules('noidung', 'nội dung', 'required', array('required' => 'Vui lòng nhập %s'));
 
 			if($this->form_validation->run() != FALSE)
 			{
-				$tensanpham = $this->input->post('tensanpham');
-				$mota = $this->input->post('mota');
-				$gia = $this->input->post('gia');
-				$danhmuc = $this->input->post('danhmuc');
-				//$status = $this->input->post('status');
-				$moi = !empty($this->input->post('moi')) ? $this->input->post('moi') : 0;
-				$trangchu = !empty($this->input->post('trangchu')) ? $this->input->post('trangchu') : 0;
+				$tenbaiviet = $this->input->post('tenbaiviet');
+				$mabaiviet = $this->input->post('mabaiviet');
+				$noidungxemtruoc = $this->input->post('noidungxemtruoc');
+				$noidung = $this->input->post('noidung');
 				$themeta = $this->input->post('themeta');
 				$keymeta = $this->input->post('keymeta');
 				$motameta = $this->input->post('motameta');
-
-				$tenhinh = $this->chuanhoa->convert_vi_to_en(trim($tensanpham));
-				$config['upload_path'] = 'img/sanpham/';
-				$config['allowed_types'] = 'gif|jpg|png';
-				$config['file_name'] = $tenhinh;
-				$this->load->library("upload", $config);
-
-				if($this->upload->do_upload('hinhanh'))
-				{
-					$img = $this->upload->data();
-					$hinhanh = $img['file_name'];
-					$conf['image_library'] = 'gd2';
-					$conf['source_image'] = $config['upload_path'].$img['file_name'];
-					$conf['create_thumb'] = false;
-					$conf['maintain_ratio'] = false;
-					if($img['image_width'] > ($img['image_height'] * 4 / 3))
-					{
-						$conf['width'] = $img['image_height'] * 4 / 3;
-						$conf['height'] = $img['image_height'];
-					}
-					else
-					{
-						$conf['width'] = $img['image_width'];
-						$conf['height'] = $img['image_width'] * 3 / 4;
-					}
-					$this->load->library('image_lib', $conf);
-					$this->image_lib->crop();
-				}
-				else
-				{
-					$hinhanh = '';
-				}
 				
 				$dat = array(
-					'tensanpham' => $tensanpham,
-					'mota' => $mota,
-					'gia' => $gia,
-					'danhmuc' => $danhmuc,
-					//'status' => $status,
-					'moi' => $moi,
-					'trangchu' => $trangchu,
-					'hinhanh' => $hinhanh,
+					'tenbaiviet' => $tenbaiviet,
+					'mabaiviet' => $mabaiviet,
+					'noidungxemtruoc' => $noidungxemtruoc,
+					'noidung' => $noidung,
 					'themeta' => $themeta,
 					'keymeta' => $keymeta,
 					'motameta' => $motameta,
 					'ngaythem' => date('Y-m-d H:i:s'),
+					'tacgia' => $_SESSION['admin_id'],
 				);
 				$idsanpham = $this->mbaiviet->thembaiviet($dat);
 				if($idsanpham)
 				{
-					$_SESSION['success'] = 'Thêm sản phẩm thành công!';
-					redirect(base_url('admin/sanpham'));
+					$_SESSION['success'] = 'Thêm bài viết thành công!';
+					redirect(base_url('admin/baiviet'));
 				}
 			}
-			else
-			{
-				$this->load->view('admin/layout', $data); 
-			}
 		}
-		else 
-		{
-			$this->load->view('admin/layout', $data); 
-		}
+		$this->load->view('admin/layout', $data); 
 	}
 	public function chinhsua($id)
 	{
-		$data['title'] = 'Chỉnh sửa sản phẩm mới';
-		$data['content'] = 'admin/sanpham/chinhsua';
-		$data['list_danhmuc'] = $this->mdanhmuc->list_danhmuc();
-		$data['sanpham'] = $this->mbaiviet->get_sanpham($id);
+		$data['title'] = 'Chỉnh sửa bài viết';
+		$data['content'] = 'admin/baiviet/chinhsua';
+		$data['baiviet'] = $this->mbaiviet->get_baiviet_id($id);
 		if(isset($_POST['chinhsua']))
 		{
-			$this->form_validation->set_rules('tensanpham', 'tên sản phẩm', 'required', array('required' => 'Vui lòng nhập %s'));
-			$this->form_validation->set_rules('gia', 'giá', 'required|integer', array('required' => 'Vui lòng nhập %s', 'integer' => 'Giá phải là số'));
-			$this->form_validation->set_rules('danhmuc', 'danh mục', 'required', array('required' => 'Vui lòng chọn %s'));
+			$this->form_validation->set_rules('tenbaiviet', 'tên bài viết', 'required', array('required' => 'Vui lòng nhập %s'));
+			$this->form_validation->set_rules('mabaiviet', 'mã bài viet', 'required', array('required' => 'Vui lòng nhập %s'));
+			$this->form_validation->set_rules('noidungxemtruoc', 'nội dung xem trước', 'required', array('required' => 'Vui lòng nhập %s'));
+			$this->form_validation->set_rules('noidung', 'nội dung', 'required', array('required' => 'Vui lòng nhập %s'));
 
 			if($this->form_validation->run() != FALSE)
 			{
-				$tensanpham = $this->input->post('tensanpham');
-				$mota = $this->input->post('mota');
-				$gia = $this->input->post('gia');
-				$danhmuc = $this->input->post('danhmuc');
-				//$status = $this->input->post('status');
-				$moi = !empty($this->input->post('moi')) ? $this->input->post('moi') : 0;
-				$trangchu = !empty($this->input->post('trangchu')) ? $this->input->post('trangchu') : 0;
+				$tenbaiviet = $this->input->post('tenbaiviet');
+				$mabaiviet = $this->input->post('mabaiviet');
+				$noidungxemtruoc = $this->input->post('noidungxemtruoc');
+				$noidung = $this->input->post('noidung');
 				$themeta = $this->input->post('themeta');
 				$keymeta = $this->input->post('keymeta');
 				$motameta = $this->input->post('motameta');
-
-				$tenhinh = $this->chuanhoa->convert_vi_to_en(trim($tensanpham));
-				$config['upload_path'] = 'img/sanpham/';
-				$config['allowed_types'] = 'gif|jpg|png';
-				$config['file_name'] = $tenhinh;
-				$this->load->library("upload", $config);
-
-				if($this->upload->do_upload('hinhanh'))
-				{
-					$img = $this->upload->data();
-					$hinhanh = $img['file_name'];
-					$conf['image_library'] = 'gd2';
-					$conf['source_image'] = $config['upload_path'].$img['file_name'];
-					$conf['create_thumb'] = false;
-					$conf['maintain_ratio'] = false;
-					if($img['image_width'] > ($img['image_height'] * 4 / 3))
-					{
-						$conf['width'] = $img['image_height'] * 4 / 3;
-						$conf['height'] = $img['image_height'];
-					}
-					else
-					{
-						$conf['width'] = $img['image_width'];
-						$conf['height'] = $img['image_width'] * 3 / 4;
-					}
-					$this->load->library('image_lib', $conf);
-					$this->image_lib->crop();
-				}
-				else
-				{
-					$hinhanh = $this->input->post('hinhanhcu');
-				}
 				
 				$dat = array(
-					'tensanpham' => $tensanpham,
-					'mota' => $mota,
-					'gia' => $gia,
-					'danhmuc' => $danhmuc,
-					//'status' => $status,
-					'moi' => $moi,
-					'trangchu' => $trangchu,
-					'hinhanh' => $hinhanh,
+					'tenbaiviet' => $tenbaiviet,
+					'mabaiviet' => $mabaiviet,
+					'noidungxemtruoc' => $noidungxemtruoc,
+					'noidung' => $noidung,
 					'themeta' => $themeta,
 					'keymeta' => $keymeta,
 					'motameta' => $motameta,
 					'ngaythem' => date('Y-m-d H:i:s'),
+					'tacgia' => $_SESSION['admin_id'],
 				);
 				$idsanpham = $this->mbaiviet->capnhat($dat, $id);
 				if($idsanpham)
 				{
-					$_SESSION['success'] = 'Thêm sản phẩm thành công!';
-					redirect(base_url('admin/sanpham'));
+					$_SESSION['success'] = 'Cập nhật bài viết thành công!';
+					redirect(base_url('admin/baiviet'));
 				}
 			}
-			else
-			{
-				$this->load->view('admin/layout', $data); 
-			}
 		}
-		else 
-		{
-			$this->load->view('admin/layout', $data); 
-		}
+		$this->load->view('admin/layout', $data); 
 	}
+	
 	public function xulyfile_xml()
 	{
 		if(isset($_POST))
@@ -332,17 +243,17 @@ class Baiviet extends CI_Controller {
 			}
 		}
 	}
-	public function xoasanpham()
+	public function xoabaiviet()
 	{
 		$json = array();
-		if(isset($_POST['idsanpham']))
+		if(isset($_POST['idbaiviet']))
 		{
-			$idsanpham = $this->input->post('idsanpham');
+			$idbaiviet = $this->input->post('idbaiviet');
 			
-			$kq = $this->mbaiviet->xoasanpham($idsanpham);
+			$kq = $this->mbaiviet->xoabaiviet($idbaiviet);
 			if($kq == true)
 			{
-				$json['success'] = 'Xóa sản phẩm thành công.';
+				$json['success'] = 'Xóa bài viết thành công.';
 			}
 			else
 			{

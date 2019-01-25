@@ -24,36 +24,28 @@
 					<table class="table table-hover table-bordered m-0">
 						<thead>
 							<tr>
-								<th>Hình ảnh</th>
-								<th>Tên sản phẩm</th>
-								<th>Thực đơn</th>
+								<th>Tên bài viết</th>
+								<th>Mã bài viết</th>
+								<th>Nội dung xem trước</th>
 								<th>Ngày thêm</th>
-								<th>Món mới</th>
-								<th>Trang chủ</th>
-								<th>Giá</th>
-								<th>Lượt xem</th>
 								<th>Hành động</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php
-							if(isset($sanpham)) 
+							if(isset($baiviet)) 
 							{
-								foreach($sanpham as $tmp)
+								foreach($baiviet as $tmp)
 								{
 							?>
 							<tr>
-								<td><img src="<?=base_url('img/sanpham/'.$tmp['hinhanh']) ?>" width="64px"></td>
-								<td><?=$tmp['tensanpham'] ?></td>
-								<td><?=$tmp['tendanhmuc'] ?></td>
+								<td><?=$tmp['tenbaiviet'] ?></td>
+								<td><?=$tmp['mabaiviet'] ?></td>
+								<td><?=$tmp['noidungxemtruoc'] ?></td>
 								<td><?=$tmp['ngaythem'] ?></td>
-								<td><input type="checkbox" onClick="check_moi(<?=$tmp['idsanpham'] ?>)" id="moi_<?=$tmp['idsanpham'] ?>" <?=$tmp['moi'] == 1 ? 'checked' : '' ?>></td>
-								<td><input type="checkbox" onClick="check_trangchu(<?=$tmp['idsanpham'] ?>)" id="trangchu_<?=$tmp['idsanpham'] ?>" <?=$tmp['trangchu'] == 1 ? 'checked' : '' ?> ></td>
-								<td><?=number_format($tmp['gia']) ?> VNĐ</td>
-								<td><?=$tmp['luotxem'] ?></td>
 								<td>
-									<a href="<?=base_url('admin/sanpham/chinhsua/'.$tmp['idsanpham']) ?>" class="btn btn-info"><i class="fas fa-edit"></i></a>
-									<button class="btn btn-danger" onClick="xoasanpham(<?=$tmp['idsanpham'] ?>)"><i class="fas fa-trash-alt"></i></button>
+									<a href="<?=base_url('admin/baiviet/chinhsua/'.$tmp['idbaiviet']) ?>" class="btn btn-info"><i class="fas fa-edit"></i></a>
+									<button class="btn btn-danger" onClick="xoabaiviet(<?=$tmp['idbaiviet'] ?>)"><i class="fas fa-trash-alt"></i></button>
 								</td>
 							</tr>
 							<?php
@@ -104,15 +96,15 @@
 			alertify.success(msg);
 		});
 	}
-	function xoasanpham(id)
+	function xoabaiviet(id)
 	{
-		var r = confirm('Bạn có thật sự muốn xóa sản phẩm này?');
+		var r = confirm('Bạn có thật sự muốn xóa bài viết này?');
 		if(r == true) {
 			$.ajax({
 				dataType: "JSON",
 				method: "POST",
-				url: "<?=base_url('admin/sanpham/xoasanpham'); ?>",
-				data:{idsanpham: id},
+				url: "<?=base_url('admin/baiviet/xoabaiviet'); ?>",
+				data:{idbaiviet: id},
 			})
 			.done(function( msg ) {
 				if(msg.success) {

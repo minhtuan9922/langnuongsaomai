@@ -13,10 +13,10 @@ class Mbaiviet extends CI_Model{
 		$this->db->where('mabaiviet', $mabaiviet);
 		return $this->db->get()->row_array();
 	}
-	public function get_sanpham($idsanpham)
+	public function get_baiviet_id($idbaiviet)
 	{
-		$this->db->from('sanpham');
-		$this->db->where('idsanpham', $idsanpham);
+		$this->db->from('baiviet');
+		$this->db->where('idbaiviet', $idbaiviet);
 		return $this->db->get()->row_array();
 	}
 	public function danhsach($start = NULL, $limit = NULL) 
@@ -36,15 +36,15 @@ class Mbaiviet extends CI_Model{
 		$this->db->from('baiviet');
 		return $this->db->count_all_results(); 
 	}
-	public function themsanpham($data = array())
+	public function thembaiviet($data = array())
 	{
-		$this->db->insert('sanpham',$data);
+		$this->db->insert('baiviet',$data);
 		return $this->db->insert_id();
 	}
 	public function capnhat($data = array(), $id) 
 	{
-		$this->db->where('idsanpham',$id);
-        return $this->db->update('sanpham',$data);
+		$this->db->where('idbaiviet',$id);
+        return $this->db->update('baiviet',$data);
 	}
 	public function chitietphim($id) 
 	{
@@ -104,9 +104,9 @@ class Mbaiviet extends CI_Model{
 		$this->db->limit(10);
 		return $this->db->get()->result_array();
 	}
-	public function xoasanpham($idsanpham)
+	public function xoabaiviet($idbaiviet)
 	{
-		$this->db->where('idsanpham', $idsanpham);
-		return $this->db->delete('sanpham');
+		$this->db->where('idbaiviet', $idbaiviet);
+		return $this->db->delete('baiviet');
 	}
 }

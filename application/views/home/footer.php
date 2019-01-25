@@ -38,4 +38,19 @@
 -->
 		</div>
 	</div>
+	<div class="container">
+		<div class="space20"></div>
+		<div class="row align-items-center">
+			<div class="col-md-6">
+				<ul class="footer-icon">
+					<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+					<li><a href="#"><i class="fab fa-youtube"></i></a></li>
+					<li><a href="#"><i class="far fa-envelope"></i></a></li>
+				</ul>
+			</div>
+			<div class="col-md-6">
+				<p class="text-secondary text-right"><i class="far fa-copyright"></i> 2019 - <?=date('Y')?>. Designed by QTS</p>
+			</div>
+		</div>
+	</div>
 </footer>
