@@ -21,7 +21,7 @@
 		<div class="space30"></div>
 	</div>
 </div>
-<div class="container-fuld bg-green">
+<div class="container-fluid bg-green">
 	<div class="container">
 		<div class="space50"></div>
 		<h1 class="text-white text-center">THỰC ĐƠN LÀNG NƯỚNG SAO MAI</h1>
@@ -135,7 +135,7 @@
 	</div>
 	<div class="space50"></div>
 </div>
-<div class="container-fuld">
+<div class="container-fluid">
 	<div class="space50"></div>
 	<div class="container">
 		<div class="row">

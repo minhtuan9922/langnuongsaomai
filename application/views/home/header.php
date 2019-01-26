@@ -1,10 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+<nav class="navbar navbar-expand navbar-dark bg-dark sticky-top">
 	<div class="container">
-		<a class="navbar-brand logo" href="<?=base_url() ?>"><img src="<?=base_url() ?>img/logo.png"></a>
+		<a class="navbar-brand logo" href="<?=base_url() ?>" style="width: 94px"><img src="<?=base_url() ?>img/logo1.png"></a>
+<!--
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+-->
+<!--		<div class="collapse navbar-collapse" id="navbarSupportedContent">-->
 			<ul class="navbar-nav">
 				<li class="nav-item <?php if( $this->uri->segment('1') == '') echo 'active'; ?>">
 					<a class="nav-link" href="<?=base_url() ?>">TRANG CHỦ </a>
@@ -55,7 +57,7 @@
 				</li>
 			</ul>
 -->
-		</div>
+<!--		</div>-->
 	</div>
 </nav>
 <!--Model đăng nhập-->

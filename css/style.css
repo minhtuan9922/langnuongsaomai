@@ -2,7 +2,23 @@
 /* CSS Document */
 body {
 	font-family: 'Arial', 'Roboto', sans-serif;
+	width: 100%;
 }
+@media(max-width: 1170px) {
+	body {
+		width: 1170px;
+	}
+}
+.container {
+	width: 1170px;
+	max-width: none !important;
+}
+/*
+.container-fluid {
+	width: 100%;
+	max-width: none !important;
+}
+*/
 .space10 {
 	width: 100%;
 	height: 10px;
