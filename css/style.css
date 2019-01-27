@@ -302,6 +302,7 @@ footer {
 	flex-grow: 1;
 	border-bottom: 1px dashed #DCDCDC;
 	margin-bottom: 20px;
+	padding-bottom: 10px;
 }
 .box-item .item-img img {
 	border: 1px solid #DCDCDC;

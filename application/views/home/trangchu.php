@@ -143,43 +143,42 @@
 				<h1>Ý kiến khách hàng</h1>
 				<img src="<?=base_url('img/boder2.png') ?>" class="" alt="">
 				<div class="space20"></div>
+				<?php
+				if(!empty($ykien))
+				{
+					foreach($ykien as $item)
+					{
+				?>
 				<div class="box-item">
 					<div class="item-img">
-						<img src="<?=base_url('img/img_6884-0163.JPG') ?>" alt="">
+						<img src="<?=base_url('img/ykien/'.$item['hinhanh']) ?>" alt="">
 					</div>
 					<div class="item-text">
-						<h4 class="text-danger">Trần Thị Nga</h4>
-						<p>Làng nướng Sao Mai quán thật sự là một nơi lý tưởng để tổ chức sinh nhật, không gian đẹp, món ăn ngon, cảm ơn quán đã cho tôi một ngày sinh nhật thật ý nghĩa và hạnh phúc. Sẽ luôn ủng hộ quán.</p>
+						<h4 class="text-danger"><?=$item['hoten'] ?></h4>
+						<p><?=$item['noidung'] ?></p>
 					</div>
 				</div>
-				<div class="box-item">
-					<div class="item-img">
-						<img src="<?=base_url('img/img_6956-6429.JPG') ?>" alt="">
-					</div>
-					<div class="item-text">
-						<h4 class="text-danger">Đặng Thanh An</h4>
-						<p>Món ăn ngon và đa dạng, thái độ phục vụ nhiệt tình, không gian lịch sự. Rất thích dàn âm thanh và ánh sáng trang bị tại quán.</p>
-					</div>
-				</div>
-				<div class="box-item">
-					<div class="item-img">
-						<img src="<?=base_url('img/img_6919-7455.JPG') ?>" alt="">
-					</div>
-					<div class="item-text">
-						<h4 class="text-danger">Phạm Ngọc Thanh</h4>
-						<p>Cách trang trí của quán rất đẹp và lịch sự, món ăn ngon, giá cả hợp lý, phù hợp để tổ chức tiệc và ăn uống cuối tuần.</p>
-					</div>
-				</div>
+				<?php
+					}
+				}
+			  	?>
 			</div>
 			<div class="col-md-6">
 				<h1>Video tiêu biểu</h1>
 				<img src="<?=base_url('img/boder2.png') ?>" class="" alt="">
 				<div class="space20"></div>
-				<div class="fotorama" data-nav="thumbs" data-thumbwidth="130" data-thumbheight="100">
-					<a href="http://youtube.com/watch?v=C3lWwBslWqg">Desert Rose</a>
-					<a href="https://www.youtube.com/watch?v=FM7MFYoylVs">Desert Rose</a>
-					<a href="https://www.youtube.com/watch?v=FM7MFYoylVs">Desert Rose</a>
-					<a href="https://www.youtube.com/watch?v=FM7MFYoylVs">Desert Rose</a>
+				<div class="fotorama" data-nav="thumbs" data-thumbwidth="130" data-thumbheight="100" data-width="100%" data-ratio="16/9" data-fit="cover">
+					<?php
+					if(!empty($video))
+					{
+						foreach($video as $item)
+						{
+					?>
+					<a href="<?=$item['link'] ?>"></a>
+					<?php
+						}
+					}
+					?>
 				</div>
 			</div>
 		</div>

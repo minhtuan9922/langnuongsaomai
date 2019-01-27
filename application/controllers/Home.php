@@ -9,6 +9,8 @@ class Home extends CI_Controller {
 		$this->load->model('mlienhe');
 		$this->load->model('mhinhanh');
 		$this->load->model('mbaiviet');
+		$this->load->model('mykien');
+		$this->load->model('mvideo');
 	}
 	public function index()
 	{
@@ -34,6 +36,8 @@ class Home extends CI_Controller {
 		}
 		
 		$data['hinhanh'] = $this->mhinhanh->get_hinhanh(10);
+		$data['ykien'] = $this->mykien->get_list_ykien(3);
+		$data['video'] = $this->mvideo->get_list_video();
 		$data['gioithieu'] = $this->mbaiviet->get_baiviet('gioithieu');
 		
 		$data['content'] = 'home/trangchu';

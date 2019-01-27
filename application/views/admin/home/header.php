@@ -132,6 +132,23 @@
 				</div>
 			</div>
 		</div>
+		<div class="card">
+			<div class="card-header">
+				<a class="collapsed card-link text-light <?php if($this->uri->segment(2) == 'video') echo 'active'; ?>" data-toggle="collapse" data-parent="#accordion" href="#video_menu"><i class="fas fa-video"></i> Video</a>
+			</div>
+			<div id="video_menu" class="collapse <?php if($this->uri->segment(2) == 'video') echo 'show'; ?>">
+				<div class="card-body">
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link text-light <?php if($this->uri->uri_string() == 'admin/video') echo 'active'; ?>" href="<?=base_url('admin/video') ?>"><i class="fas fa-list-ul"></i> Danh sách</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-light <?php if($this->uri->uri_string() == 'admin/video/themvideo') echo 'active'; ?>" href="<?=base_url('admin/video/themvideo') ?>"><i class="fas fa-plus"></i> Thêm video</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 		<?php
 		$dem_chuadoc = $this->mlienhe->dem_chuadoc();
 		?>
