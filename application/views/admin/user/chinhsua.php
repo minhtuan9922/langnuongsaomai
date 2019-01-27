@@ -49,8 +49,8 @@
 						<div class="space10"></div>
 					</div>
 					<div class="form-group">
-						<label for="background">Trạng thái</label>
-						<select name="active" class="form-control" id="active">
+						<label for="background" hidden="">Trạng thái</label>
+						<select name="active" class="form-control" id="active" hidden="">
 							<option value="1" <?=$user['active'] == 1 ? 'selected' : '' ?>>Hoạt động</option>
 							<option value="0" <?=$user['active'] == 0 ? 'selected' : '' ?>>Đình chỉ</option>
 						</select>

@@ -32,13 +32,17 @@ class Slide extends CI_Controller {
 	{
 		$data['title'] = 'Thêm thể loại mới';
 		$data['content'] = 'admin/slide/them';
-		$data['list_phim'] = $this->mphim->danhsach(NULL, 10);
 		
 		if(isset($_POST['themslide']))
 		{
 			$this->form_validation->set_rules('thutu', 'thứ tự', 'required', array('required' => 'Vui lòng nhập %s'));
-
-			if($this->form_validation->run() != FALSE)
+			$file = $_FILES["background"];
+			if($file['error'] != 0)
+			{
+				$data['error_file'] = 'Vui lòng chọn file';
+			}
+			
+			if($this->form_validation->run() != FALSE && $file['error'] == 0)
 			{
 				$config['upload_path'] = 'img/slide/';
 				$config['allowed_types'] = 'gif|jpg|png';

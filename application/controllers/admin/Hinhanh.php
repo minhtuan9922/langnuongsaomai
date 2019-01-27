@@ -103,13 +103,9 @@ class Hinhanh extends CI_Controller {
 			else
 			{
 				$data['error_hinhanh'] = 'Bạn chưa chọn hình ảnh!';
-				$this->load->view('admin/layout', $data); 
 			}
 		}
-		else 
-		{
-			$this->load->view('admin/layout', $data); 
-		}
+		$this->load->view('admin/layout', $data); 
 	}
 	public function chinhsua($id)
 	{

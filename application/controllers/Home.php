@@ -14,7 +14,6 @@ class Home extends CI_Controller {
 	{
 		$data['title'] = 'Trang chủ | Làng nướng Sao Mai';
 		$data['slide'] = 'home/slide';
-		$data['phimmoi'] = $this->mphim->phimmoicapnhat();
 		$data['danhmuc'] = $this->mdanhmuc->get_danhmuc(0);
 		$data['sanpham'] = $this->msanpham->get_sanpham_danhmuc(0);
 		

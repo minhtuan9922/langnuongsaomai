@@ -18,8 +18,8 @@
 					</div>
 					<div class="form-group">
 						<label for="hinhanh">Hình ảnh</label>
-						<input type="file" class="form-control <?php if(form_error('hinhanh')) echo 'is-invalid' ?>" id="hinhanh" name="hinhanh" value="<?php if(set_value('hinhanh')) echo set_value('hinhanh'); ?>">
-						<div class="invalid-feedback"><?=form_error('hinhanh') ?></div>
+						<input type="file" class="form-control <?php if(isset($error_file)) echo 'is-invalid' ?>" id="hinhanh" name="hinhanh">
+						<div class="invalid-feedback"><?=isset($error_file) ? $error_file : '' ?></div>
 						<div class="space10"></div>
 						<img src="" id="images" width="100px" class="mx-auto d-block img-thumbnail">
 					</div>

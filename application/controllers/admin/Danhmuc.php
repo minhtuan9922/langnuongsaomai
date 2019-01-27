@@ -40,7 +40,13 @@ class Danhmuc extends CI_Controller {
 		{
 			$this->form_validation->set_rules('tendanhmuc', 'tên danh mục', 'required', array('required' => 'Vui lòng nhập %s'));
 
-			if($this->form_validation->run() != FALSE)
+			$file = $_FILES["hinhanh"];
+			if($file['error'] != 0)
+			{
+				$data['error_file'] = 'Vui lòng chọn file';
+			}
+			
+			if($this->form_validation->run() != FALSE && $file['error'] == 0)
 			{
 				$dat['tendanhmuc'] = trim($this->input->post('tendanhmuc'));
 				$dat['tenkhongdau'] = $this->chuanhoa->convert_vi_to_en(trim($this->input->post('tendanhmuc')));

@@ -41,7 +41,7 @@
 				
 			</ul>
 			<form class="form-inline my-2 my-lg-0 form-timkiem ml-auto">
-				<input class="form-control mr-sm-2 bg-secondary text-light input-dark" type="search" placeholder="Tìm kiếm" aria-label="Search" id="timkiem">
+				<input class="form-control mr-sm-2 bg-secondary text-light input-dark" type="search" placeholder="Tìm kiếm" aria-label="Search" id="timkiem" autocomplete="off">
 				<button class="btn btn-secondary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
 				<div class="ketqua bg-secondary">
 					

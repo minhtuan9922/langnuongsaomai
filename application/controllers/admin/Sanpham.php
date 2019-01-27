@@ -83,7 +83,13 @@ class Sanpham extends CI_Controller {
 			$this->form_validation->set_rules('gia', 'giá', 'required|integer', array('required' => 'Vui lòng nhập %s', 'integer' => 'Giá phải là số'));
 			$this->form_validation->set_rules('danhmuc', 'danh mục', 'required', array('required' => 'Vui lòng chọn %s'));
 
-			if($this->form_validation->run() != FALSE)
+			$file = $_FILES["hinhanh"];
+			if($file['error'] != 0)
+			{
+				$data['error_file'] = 'Vui lòng chọn file';
+			}
+			
+			if($this->form_validation->run() != FALSE && $file['error'] == 0)
 			{
 				$tensanpham = $this->input->post('tensanpham');
 				$mota = $this->input->post('mota');

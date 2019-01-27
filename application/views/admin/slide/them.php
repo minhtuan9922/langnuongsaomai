@@ -13,7 +13,8 @@
 				<form action="<?=base_url('admin/slide/them') ?>" method="post" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="background">Slide</label>
-						<input type="file" class="form-control" id="background" name="background">
+						<input type="file" class="form-control <?php if(isset($error_file)) echo 'is-invalid' ?>" id="background" name="background">
+						<div class="invalid-feedback"><?=isset($error_file) ? $error_file : '' ?></div>
 						<div class="space10"></div>
 						<img src="" id="img_background" width="400px" class="mx-auto img-thumbnail" style="display: none">
 					</div>
