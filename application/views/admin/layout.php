@@ -21,6 +21,7 @@
 	<link href="<?=base_url() ?>asset/css/froala_editor.pkgd.min.css" rel="stylesheet">
 	<script src="<?=base_url() ?>asset/js/froala_editor.pkgd.min.js"></script>
 	<script src="<?=base_url() ?>asset/js/languages/vi.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
 <body>
