@@ -73,35 +73,32 @@ class Mview extends CI_Model{
 		$this->db->where('idvideo', $idvideo);
 		return $this->db->delete('video');
 	}
-	public function getTotalOrdersByDay() {
-		$implode = array();
-
-		foreach ($this->config->get('config_complete_status') as $order_status_id) {
-			$implode[] = "'" . (int)$order_status_id . "'";
-		}
-
-		$order_data = array();
+	public function get_total_view_day() {
+		$view_data = array();
 
 		for ($i = 0; $i < 24; $i++) {
-			$order_data[$i] = array(
+			$view_data[$i] = array(
 				'hour'  => $i,
 				'total' => 0
 			);
 		}
+		$this->db->select('count(*) as total, hour(ngaygio) as hour');
+		$this->db->from('lichsuxem');
+		$this->db->where('date(ngaygio) = date(now())');
+		$this->db->group_by('hour(ngaygio)');
+		$this->db->order_by('ngaygio', 'asc');
 
-		$query = $this->db->query("SELECT COUNT(*) AS total, HOUR(date_added) AS hour FROM `" . DB_PREFIX . "order` WHERE order_status_id IN(" . implode(",", $implode) . ") AND DATE(date_added) = DATE(NOW()) GROUP BY HOUR(date_added) ORDER BY date_added ASC");
-
-		foreach ($query->rows as $result) {
-			$order_data[$result['hour']] = array(
+		foreach ($this->db->get()->result_array() as $result) {
+			$view_data[$result['hour']] = array(
 				'hour'  => $result['hour'],
 				'total' => $result['total']
 			);
 		}
 
-		return $order_data;
+		return $view_data;
 	}
 
-	public function getTotalOrdersByWeek() {
+	public function get_total_view_week() {
 		$implode = array();
 
 		foreach ($this->config->get('config_complete_status') as $order_status_id) {
@@ -133,13 +130,7 @@ class Mview extends CI_Model{
 		return $order_data;
 	}
 
-	public function getTotalOrdersByMonth() {
-		$implode = array();
-
-		foreach ($this->config->get('config_complete_status') as $order_status_id) {
-			$implode[] = "'" . (int)$order_status_id . "'";
-		}
-
+	public function get_total_view_month() {
 		$order_data = array();
 
 		for ($i = 1; $i <= date('t'); $i++) {
@@ -150,12 +141,16 @@ class Mview extends CI_Model{
 				'total' => 0
 			);
 		}
-
-		$query = $this->db->query("SELECT COUNT(*) AS total, date_added FROM `" . DB_PREFIX . "order` WHERE order_status_id IN(" . implode(",", $implode) . ") AND DATE(date_added) >= '" . $this->db->escape(date('Y') . '-' . date('m') . '-1') . "' GROUP BY DATE(date_added)");
-
-		foreach ($query->rows as $result) {
-			$order_data[date('j', strtotime($result['date_added']))] = array(
-				'day'   => date('d', strtotime($result['date_added'])),
+		
+		$this->db->select('count(*) as total, ngaygio');
+		$this->db->from('lichsuxem');
+		$this->db->where("date(ngaygio) >= '". date('Y-m-1') ."'");
+		$this->db->group_by('date(ngaygio)');
+		$this->db->order_by('ngaygio', 'asc');
+		
+		foreach ($this->db->get()->result_array() as $result) {
+			$order_data[date('j', strtotime($result['ngaygio']))] = array(
+				'day'   => date('d', strtotime($result['ngaygio'])),
 				'total' => $result['total']
 			);
 		}

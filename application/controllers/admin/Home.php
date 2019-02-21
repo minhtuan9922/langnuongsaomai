@@ -14,7 +14,8 @@ class Home extends CI_Controller {
 	public function index()
 	{
 		$data['title'] = 'Trang quản trị | phimmt';
-//		$data['slide'] = 'home/slide';
+		$data['view'] = $this->mview->get_total_view_month();
+		
 		$data['content'] = 'admin/home/home';
 		$this->load->view('admin/layout', $data);
 	}
