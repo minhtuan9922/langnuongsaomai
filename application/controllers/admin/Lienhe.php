@@ -77,7 +77,7 @@ class Lienhe extends CI_Controller {
 		$this->mlienhe->capnhat(array('trangthai'=>1), $id);
 		$this->load->view('admin/layout', $data); 
 	}
-	public function xoabaiviet()
+	public function xoalienhe()
 	{
 		$json = array();
 		if(isset($_POST['idlienhe']))

@@ -159,6 +159,11 @@
 		</div>
 		<div class="card">
 			<div class="card-header">
+				<a class="card-link text-light <?php if($this->uri->segment(2) == 'setting') echo 'active'; ?>" href="<?=base_url('admin/setting') ?>"><i class="fas fa-info-circle"></i> Thông tin website</a>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header">
 				<a class="collapsed card-link text-light <?php if($this->uri->segment(2) == 'user') echo 'active'; ?>" data-toggle="collapse" data-parent="#accordion" href="#user"><i class="fas fa-users"></i> Quản trị viên</a>
 			</div>
 			<div id="user" class="collapse <?php if($this->uri->segment(2) == 'user') echo 'show'; ?>">
