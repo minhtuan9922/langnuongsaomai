@@ -19,7 +19,14 @@ class Msetting extends CI_Model{
 		$this->db->from('setting');
 		$this->db->where('code', $code);
 		$kq = $this->db->get()->row_array();
-		return $kq['value'];
+		if(!empty($kq))
+		{
+			return $kq['value'];
+		}
+		else
+		{
+			return '';
+		}
 	}
 	public function check_password($password,$id)
 	{
@@ -48,7 +55,6 @@ class Msetting extends CI_Model{
 	}
 	public function them_setting($db = array())
 	{
-		$this->xoa_setting();
 		return $this->db->insert('setting',$db);
 	}
 	public function xoa_setting()

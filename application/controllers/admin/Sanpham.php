@@ -80,7 +80,7 @@ class Sanpham extends CI_Controller {
 		if(isset($_POST['themsanpham']))
 		{
 			$this->form_validation->set_rules('tensanpham', 'tên sản phẩm', 'required', array('required' => 'Vui lòng nhập %s'));
-			$this->form_validation->set_rules('gia', 'giá', 'required|integer', array('required' => 'Vui lòng nhập %s', 'integer' => 'Giá phải là số'));
+			$this->form_validation->set_rules('gia', 'giá', 'integer', array('integer' => 'Giá phải là số'));
 			$this->form_validation->set_rules('danhmuc', 'danh mục', 'required', array('required' => 'Vui lòng chọn %s'));
 
 			$file = $_FILES["hinhanh"];
@@ -174,7 +174,7 @@ class Sanpham extends CI_Controller {
 		if(isset($_POST['chinhsua']))
 		{
 			$this->form_validation->set_rules('tensanpham', 'tên sản phẩm', 'required', array('required' => 'Vui lòng nhập %s'));
-			$this->form_validation->set_rules('gia', 'giá', 'required|integer', array('required' => 'Vui lòng nhập %s', 'integer' => 'Giá phải là số'));
+			$this->form_validation->set_rules('gia', 'giá', 'integer', array('integer' => 'Giá phải là số'));
 			$this->form_validation->set_rules('danhmuc', 'danh mục', 'required', array('required' => 'Vui lòng chọn %s'));
 
 			if($this->form_validation->run() != FALSE)

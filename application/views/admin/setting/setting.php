@@ -14,6 +14,22 @@
 						<label for="ten_website">Tên website</label>
 						<input type="text" class="form-control" id="ten_website" name="ten_website" placeholder="Tên website" value="<?php if(isset($ten_website)) echo $ten_website ?>">
 					</div>
+					<div class="form-group">
+						<label for="dienthoai">Số điện thoại</label>
+						<input type="text" class="form-control" id="dienthoai" name="dienthoai" placeholder="Số điện thoại" value="<?php if(isset($dienthoai)) echo $dienthoai ?>">
+					</div>
+					<div class="form-group">
+						<label for="email">Email</label>
+						<input type="text" class="form-control" id="email" name="email" placeholder="Email" value="<?php if(isset($email)) echo $email ?>">
+					</div>
+					<div class="form-group">
+						<label for="diachi">Địa chỉ</label>
+						<input type="text" class="form-control" id="diachi" name="diachi" placeholder="Địa chỉ" value="<?php if(isset($diachi)) echo $diachi ?>">
+					</div>
+					<div class="form-group">
+						<label for="diachi_website">Địa chỉ website</label>
+						<input type="text" class="form-control" id="diachi_website" name="diachi_website" placeholder="Địa chỉ website" value="<?php if(isset($diachi_website)) echo $diachi_website ?>">
+					</div>
 					<button type="submit" class="btn btn-primary">Lưu</button>
 				</form>
 			</div>

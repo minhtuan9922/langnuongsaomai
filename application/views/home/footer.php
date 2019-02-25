@@ -4,10 +4,10 @@
 			<div class="row">
 				<div class="col-md-4">
 					<h4 class="text-danger">LÀNG NƯỚNG SAO MAI</h4>
-					<p class="text-white"><em>Địa chỉ: </em></p>
-					<p class="text-white"><em>Email: </em></p>
-					<p class="text-white"><em>Điện thoại:</em></p>
-					<p class="text-white"><em>Website:</em></p>
+					<p class="text-white"><em>Địa chỉ: <?=$this->msetting->get_setting('diachi') ?></em></p>
+					<p class="text-white"><em>Email: <?=$this->msetting->get_setting('email') ?></em></p>
+					<p class="text-white"><em>Điện thoại: <?=$this->msetting->get_setting('dienthoai') ?></em></p>
+					<p class="text-white"><em>Website: <?=$this->msetting->get_setting('diachi_website') ?></em></p>
 				</div>
 				<div class="col-md-4">
 					<h4 class="text-white">Quy định chung</h4>

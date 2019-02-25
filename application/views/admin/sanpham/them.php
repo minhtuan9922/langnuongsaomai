@@ -12,6 +12,13 @@
 			<div class="card-body">
 				<form action="<?=base_url('admin/sanpham/themsanpham') ?>" method="post" enctype="multipart/form-data">
 					<div class="form-group">
+						<label for="hinhanh">Hình ảnh</label>
+						<input type="file" class="form-control <?php if(isset($error_file)) echo 'is-invalid' ?>" id="hinhanh" name="hinhanh">
+						<div class="invalid-feedback"><?=isset($error_file) ? $error_file : '' ?></div>
+						<div class="space10"></div>
+						<img src="" id="images" width="200px" class="mx-auto d-block img-thumbnail">
+					</div>
+					<div class="form-group">
 						<label for="tensanpham">Tên sản phẩm</label>
 						<input type="text" class="form-control <?php if(form_error('tensanpham')) echo 'is-invalid'; ?>" id="tensanpham" name="tensanpham" required placeholder="Tên sản phẩm" value="<?php if(set_value('tensanpham')) echo set_value('tensanpham'); ?>">
 						<div class="invalid-feedback"><?=form_error('tensanpham') ?></div>
@@ -22,7 +29,7 @@
 					</div>
 					<div class="form-group">
 						<label for="gia">Giá</label>
-						<input type="text" class="form-control <?php if(form_error('gia')) echo 'is-invalid' ?>" id="gia" name="gia" placeholder="Giá" required value="<?php if(set_value('gia')) echo set_value('gia'); ?>">
+						<input type="text" class="form-control <?php if(form_error('gia')) echo 'is-invalid' ?>" id="gia" name="gia" placeholder="Giá" value="<?php if(set_value('gia')) echo set_value('gia'); ?>">
 						<div class="invalid-feedback"><?=form_error('gia') ?></div>
 					</div>
 					<div class="grom-group">
@@ -51,13 +58,6 @@
 							?>
 						</select>
 						<div class="invalid-feedback"><?=form_error('danhmuc') ?></div>
-					</div>
-					<div class="form-group">
-						<label for="hinhanh">Hình ảnh</label>
-						<input type="file" class="form-control <?php if(isset($error_file)) echo 'is-invalid' ?>" id="hinhanh" name="hinhanh">
-						<div class="invalid-feedback"><?=isset($error_file) ? $error_file : '' ?></div>
-						<div class="space10"></div>
-						<img src="" id="images" width="200px" class="mx-auto d-block img-thumbnail">
 					</div>
 <!--
 					<div class="grom-group">

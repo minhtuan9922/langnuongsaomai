@@ -17,6 +17,7 @@ class Setting extends CI_Controller {
 		
 		if($this->input->post())
 		{
+			$this->msetting->xoa_setting();
 			foreach($this->input->post() as $key => $item)
 			{
 				$dat = array(
