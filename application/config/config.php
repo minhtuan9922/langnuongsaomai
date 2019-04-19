@@ -25,7 +25,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 |
 */
 $config['base_url'] = 'http://localhost/langnuongsaomai/';
-//$config['base_url'] = 'https://buffetsaomai.com/';
+//$config['base_url'] = 'http://buffet99ksaomai.com/';
 
 /*
 |--------------------------------------------------------------------------

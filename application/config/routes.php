@@ -61,3 +61,5 @@ $route['admin/phim/(:num)'] = 'admin/phim/index/$1';
 $route['thucdon/(:any)'] = 'thucdon/index/$1';
 $route['thucdon/(:any)/(:num)'] = 'thucdon/index/$1';
 $route['chitiet/(:num)/(:any)'] = 'chitiet/index/$1';
+
+$route['admin/sanpham/(:num)'] = 'admin/sanpham/index/$1';

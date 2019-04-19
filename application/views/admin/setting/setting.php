@@ -30,6 +30,10 @@
 						<label for="diachi_website">Địa chỉ website</label>
 						<input type="text" class="form-control" id="diachi_website" name="diachi_website" placeholder="Địa chỉ website" value="<?php if(isset($diachi_website)) echo $diachi_website ?>">
 					</div>
+					<div class="form-group">
+						<label for="fanpage">Fanpage Facebook</label>
+						<input type="text" class="form-control" id="fanpage" name="fanpage" placeholder="Fanpage Facebook" value="<?php if(isset($fanpage)) echo $fanpage ?>">
+					</div>
 					<button type="submit" class="btn btn-primary">Lưu</button>
 				</form>
 			</div>

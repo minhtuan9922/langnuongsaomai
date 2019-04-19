@@ -10,7 +10,10 @@ class Gioithieu extends CI_Controller {
 	public function index()
 	{
 		$data['title'] = 'Trang chủ | Giới thiệu';
-		$data['gioithieu'] = $this->mbaiviet->get_baiviet('gioithieu');
+		$data['gioithieu'] = $gioithieu = $this->mbaiviet->get_baiviet('gioithieu');
+		$data['themeta'] = $gioithieu['themeta'];
+		$data['keymeta'] = $gioithieu['keymeta'];
+		$data['motameta'] = $gioithieu['motameta'];
 		
 		$data['content'] = 'gioithieu';
 		$this->load->view('index', $data);

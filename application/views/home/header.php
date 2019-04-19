@@ -38,6 +38,9 @@
 				<li class="nav-item <?php if( $this->uri->segment('1') == 'lienhe') echo 'active'; ?>">
 					<a class="nav-link" href="<?=base_url('lienhe') ?>">LIÊN HỆ </a>
 				</li>
+				<li class="nav-item <?php if( $this->uri->segment('1') == 'tintuc') echo 'active'; ?>">
+					<a class="nav-link" href="<?=base_url('tintuc') ?>">TIN TỨC </a>
+				</li>
 				
 			</ul>
 			<form class="form-inline my-2 my-lg-0 form-timkiem ml-auto">

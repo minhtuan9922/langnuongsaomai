@@ -4,10 +4,10 @@
 <head>
 	<meta charset="utf-8">
 <!--	<meta name="viewport" content="width=device-width, initial-scale=1">-->
-	<meta name="Keywords" content="">
-	<meta name="Content-Type" content="">
-	<meta name="Description" content="">
-	<title><?php if(isset($title)) echo $title; else echo 'phimmt'; ?></title>
+	<meta name="Keywords" content="<?=isset($keymeta) ? $keymeta : 'buffet 99k sao mai' ?>">
+	<meta name="Content-Type" content="<?=isset($themeta) ? $themeta : 'buffet 99k sao mai' ?>">
+	<meta name="Description" content="<?=isset($motameta) ? $motameta : 'buffet 99k sao mai' ?>">
+	<title><?php if(isset($title)) echo $title; else echo 'buffet 99k sao mai'; ?></title>
 	<link rel="icon" href="<?=base_url() ?>img/logo1.png">
 	<link rel="stylesheet" href="<?=base_url() ?>css/bootstrap.css">
 	<link rel="stylesheet" href="<?=base_url() ?>css/style.css">
@@ -26,6 +26,13 @@
 	<script src="<?=base_url() ?>fotorama-4.6.4/fotorama.js"></script>
 	<script src="<?=base_url() ?>viewer/viewer.js"></script>
 	<link  href="<?=base_url() ?>viewer/viewer.css" rel="stylesheet">
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+		 (adsbygoogle = window.adsbygoogle || []).push({
+			  google_ad_client: "ca-pub-2882504649631672",
+			  enable_page_level_ads: true
+		 });
+	</script>
 </head>
 
 <body>

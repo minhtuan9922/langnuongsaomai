@@ -15,7 +15,7 @@
 					<p class="text-white"><a href="<?=base_url() ?>" class="text-white">Chính sách ưu đãi</a></p>
 				</div>
 				<div class="col-md-4">
-					<div class="fb-page" data-href="https://www.facebook.com/facebook" data-tabs="timeline" data-height="200" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote></div>
+					<div class="fb-page" data-href="<?=$this->msetting->get_setting('fanpage') ?>" data-tabs="timeline" data-height="200" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="<?=$this->msetting->get_setting('fanpage') ?>" class="fb-xfbml-parse-ignore"><a href="<?=$this->msetting->get_setting('fanpage') ?>"></a></blockquote></div>
 				</div>
 			</div>
 			<div class="space20"></div>

@@ -17,7 +17,7 @@ class Msanpham extends CI_Model{
 		$this->db->where('sanpham.status', 1);
 		$this->db->where('sanpham.trangchu', 1);
 		$this->db->order_by('sanpham.danhmuc', 'asc');
-		$this->db->limit(8);
+//		$this->db->limit(8);
 		return $this->db->get()->result_array();
 	}
 	public function get_sanpham($idsanpham)
